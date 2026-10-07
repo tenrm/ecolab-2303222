@@ -141,7 +141,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
 .stars{color:var(--accent);letter-spacing:1px;white-space:nowrap}
 .footer{margin-top:30px;font-size:.82rem;color:var(--ink-2);border-top:1px solid var(--line);padding-top:14px}
 .theme-btn{background:none;border:1px solid var(--line);border-radius:9px;color:var(--ink-2);cursor:pointer;padding:5px 10px;font:inherit;font-size:.8rem;width:100%;margin-top:8px}
-@media (max-width:900px){
+@media screen and (max-width:900px){
   .app{grid-template-columns:1fr}
   nav.side{position:fixed;inset:0 auto 0 0;width:260px;z-index:30;transform:translateX(-105%);transition:transform .2s;box-shadow:0 0 40px rgba(0,0,0,.25)}
   nav.side.open{transform:none}
@@ -158,8 +158,23 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
 @media print{
   nav.side,.topbar,.noprint,.tabs{display:none!important}
   .app{display:block} main{padding:0} section.page{display:none!important} section.page.on{display:block!important}
-  .card{box-shadow:none;break-inside:avoid} body{background:#fff;color:#000}
+  .card{box-shadow:none;break-inside:auto} .stat,.ind-row,details.ind{break-inside:avoid} body{background:#fff;color:#000;font-size:12px}
+  .print-only{display:block!important}
+  @page{size:A4;margin:10mm}
+  .card{padding:10px 12px;margin-bottom:8px} .ind-row{padding:6px 0;grid-template-columns:44px 1fr 60px} .cb{padding:1px 0} h3{margin-bottom:.3em}
+  #treeTbl input{min-width:0;width:100%}
+  #p-calc>h1,#p-calc>p.muted{display:none}
+  #scoreGrid{grid-template-columns:1fr!important}
+  #scoreGrid>div:last-child{order:-1} .sticky-res{position:static}
+  #radar{max-width:360px;display:block;margin:0 auto}
+  body.printing-calc #s-tree{display:block!important;break-before:page}
+  body.printing-calc #s-tree .callout{display:none}
+  body.printing-calc #s-area{display:none!important}
+  #treeTbl button,#treeTbl tr.empty{display:none}
+  input,select,textarea{border:1px solid #bbb!important}
+  a[href]{color:inherit;text-decoration:none}
 }
+.print-only{display:none}
 </style>
 </head>
 <body>
@@ -200,7 +215,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
     <div class="row" style="margin-top:14px">
       <a class="btn" href="#video">▶ ดู VDO Brief</a>
       <a class="btn" href="files/manual/EcoAssessment_LabManual_v2025.pdf" target="_blank" rel="noopener">คู่มือปฏิบัติการ (PDF)</a>
-      <a class="btn" href="files/tools/GreenSpace_Assessment_Tool.xlsx" download>ไฟล์ Excel ประเมิน</a>
+      <a class="btn" href="#calc">เครื่องมือคำนวณ</a>
     </div>
     <div class="chips" id="heroChips"></div>
   </div>
@@ -235,19 +250,22 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
         </ul>
       </div></div>
       <div class="step"><div class="num">2</div><div>
-        <h3>ประเมินด้วยไฟล์ Excel (หรือเครื่องมือในเว็บนี้ตรวจทาน)</h3>
+        <h3>ประเมินด้วย <a href="#calc">เครื่องมือคำนวณ</a> ในเว็บนี้</h3>
         <ul class="clean">
-          <li>ศึกษาการใช้งานจากคู่มือเกณฑ์ฯ และชีท “คู่มือการใช้งาน” หน้าแรกของไฟล์ Excel</li>
+          <li>ศึกษาเกณฑ์การให้คะแนนจากหน้า <a href="#criteria">เกณฑ์ 15 ตัวชี้วัด</a> และคู่มือเกณฑ์ฯ</li>
+          <li>กรอกรหัสกลุ่มย่อย ขนาดพื้นที่ ข้อมูลตัวชี้วัด และข้อมูลต้นไม้ (แท็บ “คาร์บอนต้นไม้”) ให้ครบ</li>
           <li>วัดขนาดพื้นที่ด้วย Google Earth Pro (สร้าง polygon) — ดู<a href="#" data-pdf="106">คู่มือเกณฑ์ฯ หน้า 106 เป็นต้นไป</a></li>
-          <li>ข้อที่ไม่ทราบ (เช่น การจัดการของสวนสาธารณะ) ให้สมมุติค่าได้ และพิมพ์คำตอบที่สมมุติเป็น<span style="color:#d33;font-weight:600">ตัวอักษรสีแดง</span></li>
+          <li>ข้อที่ไม่ทราบ (เช่น การจัดการของสวนสาธารณะ) ให้สมมุติค่าได้ และระบุข้อที่สมมุติในช่อง <b>“ข้อมูลที่สมมุติ/หมายเหตุ”</b></li>
+          <li>กด <b>พิมพ์/บันทึก PDF</b> เพื่อบันทึกผลการคำนวณเป็นไฟล์ PDF</li>
           <li>ดูผลว่าด้านใดคะแนนสูง (ควรรักษา) ด้านใดคะแนนต่ำ (ควรปรับปรุง)</li>
         </ul>
       </div></div>
       <div class="step"><div class="num">3</div><div>
         <h3>ทำรายงานและส่งงาน</h3>
         <ul class="clean">
-          <li>กลุ่มย่อยส่งไฟล์ Excel ที่กรอกครบ (ตั้งชื่อตามกลุ่มย่อย เช่น A10.1, A10.2)</li>
-          <li>กลุ่มใหญ่ส่งรายงานสรุป 1 ฉบับ พร้อมแผนการจัดการ 12 กิจกรรม (6 กิจกรรม/พื้นที่) — ดูหน้า <a href="#report">รายงาน &amp; การส่งงาน</a></li>
+          <li>กลุ่มย่อยส่งไฟล์ PDF ผลการคำนวณ ตั้งชื่อ <code>รหัสกลุ่มย่อย_ผลการคำนวณ</code> เช่น A1.1_ผลการคำนวณ, A1.2_ผลการคำนวณ</li>
+          <li>กลุ่มใหญ่ส่งรายงาน ตั้งชื่อ <code>รหัสกลุ่ม_รายงาน</code> เช่น A1_รายงาน</li>
+          <li>รายงานมีแผนการจัดการ 12 กิจกรรม (6 กิจกรรม/พื้นที่) — ดูหน้า <a href="#report">รายงาน &amp; การส่งงาน</a></li>
         </ul>
       </div></div>
     </div>
@@ -345,7 +363,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
 <!-- ================= CALC ================= -->
 <section class="page" id="p-calc">
   <h1>เครื่องมือคำนวณ</h1>
-  <p class="muted">ใช้ตรวจทาน/ทดลองคำนวณควบคู่กับไฟล์ Excel · ข้อมูลที่กรอกจะถูกจำไว้ในเบราว์เซอร์เครื่องนี้เท่านั้น</p>
+  <p class="muted">กรอกข้อมูลให้ครบทั้งแท็บ “คะแนน 15 ตัวชี้วัด” และ “คาร์บอนต้นไม้” แล้วกด <b>พิมพ์/บันทึก PDF</b> → ส่งไฟล์ชื่อ <code>รหัสกลุ่มย่อย_ผลการคำนวณ.pdf</code> · ข้อมูลที่กรอกจำไว้ในเบราว์เซอร์เครื่องนี้เท่านั้น (ใช้เครื่อง/เบราว์เซอร์เดิมเมื่อกลับมาแก้ไข)</p>
+  <div class="print-only" id="printHead" style="border-bottom:2px solid #1f7a4d;padding-bottom:8px;margin-bottom:12px"></div>
   <div class="tabs noprint" id="calcTabs">
     <button data-s="score" class="on" type="button">คะแนน 15 ตัวชี้วัด</button>
     <button data-s="tree" type="button">คาร์บอนต้นไม้</button>
@@ -359,8 +378,11 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
         <div class="card">
           <h3>ข้อมูลพื้นที่</h3>
           <div class="grid g2">
-            <div class="field"><label for="siteName">ชื่อพื้นที่สีเขียว / กลุ่มย่อย</label><input type="text" id="siteName" placeholder="เช่น A10.2 อุทยาน 100 ปี จุฬาฯ"></div>
+            <div class="field"><label for="groupCode">รหัสกลุ่มย่อย *</label><input type="text" id="groupCode" placeholder="เช่น A1.1"><span class="hint">ใช้ตั้งชื่อไฟล์ PDF อัตโนมัติ</span></div>
+            <div class="field"><label for="evalDate">วันที่ประเมิน</label><input type="text" id="evalDate" placeholder="เช่น 30 ก.ย. 2568"></div>
+            <div class="field"><label for="siteName">ชื่อพื้นที่สีเขียว *</label><input type="text" id="siteName" placeholder="เช่น อุทยาน 100 ปี จุฬาฯ / หอพัก xx"></div>
             <div class="field"><label for="siteType">ประเภทพื้นที่สีเขียว (สำหรับคะแนนถ่วงน้ำหนัก)</label><select id="siteType"></select></div>
+            <div class="field" style="grid-column:1/-1"><label for="members">สมาชิกกลุ่มย่อย (ชื่อ–รหัสนิสิต)</label><input type="text" id="members" placeholder="เช่น นาย ก 66xxxxxx23, นางสาว ข 66xxxxxx23"></div>
           </div>
           <p class="hint muted" style="font-size:.8rem;margin-top:10px">ขนาดพื้นที่ (ตร.ม.) จากการสร้าง polygon ใน Google Earth Pro → คลิกขวา Properties → Measurements</p>
           <div class="grid g3">
@@ -375,6 +397,11 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
         </div>
 
         <div class="card" id="indCard"></div>
+        <div class="card">
+          <h3>ข้อมูลที่สมมุติ / หมายเหตุ</h3>
+          <p class="muted" style="font-size:.84rem">ระบุข้อที่ไม่ทราบข้อมูลจริงและสมมุติค่าขึ้น (เช่น ข้อ 2.4 สมมุติ 12 ครั้ง/ปี, ข้อ 3.x สมมุติจากการสอบถาม) — ข้อความนี้จะแสดงในไฟล์ PDF</p>
+          <textarea id="notes" rows="4" placeholder="ข้อ 2.4: สมมุติ ... / ข้อ 3.1: สมมุติ ..."></textarea>
+        </div>
       </div>
 
       <div>
@@ -394,7 +421,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
             </div>
             <div class="row noprint" style="margin-top:12px">
               <button class="btn sm" id="btnCsv" type="button">ดาวน์โหลด CSV</button>
-              <button class="btn sm" id="btnPrint" type="button">พิมพ์/บันทึก PDF</button>
+              <button class="btn sm pri" id="btnPrint" type="button">พิมพ์/บันทึก PDF</button>
               <button class="btn sm ghost" id="btnReset" type="button">ล้างข้อมูล</button>
             </div>
           </div>
@@ -548,8 +575,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
   <div class="grid g2">
     <div class="card">
       <h3>สิ่งที่ต้องส่ง</h3>
-      <div class="doc" style="margin-bottom:10px"><div class="ic xls">XLSX</div><div><b>กลุ่มย่อย: ไฟล์ Excel ที่กรอกครบ</b><small>มีผลการประเมินในแผ่นงานสุดท้าย · ตั้งชื่อไฟล์ตามกลุ่มย่อย เช่น A10.1, A10.2</small></div></div>
-      <div class="doc"><div class="ic doc">DOC</div><div><b>กลุ่มใหญ่: รายงานสรุป 1 ฉบับ</b><small>โครงสร้างตาม checklist ด้านขวา</small></div></div>
+      <div class="doc" style="margin-bottom:10px"><div class="ic pdf">PDF</div><div><b>กลุ่มย่อย: ไฟล์ผลการคำนวณ (PDF)</b><small>จาก<a href="#calc">เครื่องมือคำนวณ</a> กดปุ่ม “พิมพ์/บันทึก PDF” (เลือกปลายทาง “บันทึกเป็น PDF”) · มีคะแนน 15 ตัวชี้วัด กราฟเรดาร์ ตารางคาร์บอนต้นไม้ และข้อมูลที่สมมุติ<br>ตั้งชื่อไฟล์: <code>A1.1_ผลการคำนวณ.pdf</code>, <code>A1.2_ผลการคำนวณ.pdf</code>, <code>B3.1_ผลการคำนวณ.pdf</code>, <code>B3.2_ผลการคำนวณ.pdf</code></small><div class="row"><a class="btn sm" href="#calc">ไปที่เครื่องมือคำนวณ</a></div></div></div>
+      <div class="doc"><div class="ic doc">DOC</div><div><b>กลุ่มใหญ่: รายงานสรุป 1 ฉบับ</b><small>โครงสร้างตาม checklist ด้านขวา · ตั้งชื่อไฟล์: <code>A1_รายงาน</code>, <code>B3_รายงาน</code></small></div></div>
       <div class="row" style="margin-top:14px"><a class="btn pri" id="driveLink" target="_blank" rel="noopener">ส่งงานใน Google Drive</a></div>
       <p class="muted" style="font-size:.85rem;margin-top:8px" id="dueText"></p>
     </div>
@@ -585,7 +612,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
 
 <div class="footer">
   ปฏิบัติการนิเวศวิทยา 2303222 · รศ.ดร.พงษ์ชัย ดำรงโรจน์วัฒนา และ ผศ.ดร.นิพาดา เรือนแก้ว ดิษยทัติ · ภาควิชาชีววิทยา คณะวิทยาศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย<br>
-  เกณฑ์การวิเคราะห์ฯ พัฒนาภายใต้โครงการเสริมสร้างพื้นที่สีเขียวในเมืองเพื่อรองรับความเป็นกลางทางคาร์บอนของประเทศไทย (สนับสนุนโดย GIZ) · เครื่องมือในเว็บนี้ใช้เพื่อการเรียนรู้ ผลอย่างเป็นทางการให้ใช้ไฟล์ Excel
+  เกณฑ์การวิเคราะห์ฯ พัฒนาภายใต้โครงการเสริมสร้างพื้นที่สีเขียวในเมืองเพื่อรองรับความเป็นกลางทางคาร์บอนของประเทศไทย (สนับสนุนโดย GIZ) · เครื่องมือคำนวณในเว็บนี้ใช้เกณฑ์และสมการเดียวกับโปรแกรมวิเคราะห์ศักยภาพพื้นที่สีเขียว (Excel)
 </div>
 </main>
 </div>
@@ -684,7 +711,7 @@ const IND = [
 const DOCS_MAIN = [
  {t:"คู่มือปฏิบัติการ: การประเมินศักยภาพระบบนิเวศและการสร้างแผนการจัดการ (v2025)",d:"บทนำ ขั้นตอนการปฏิบัติ การเขียนรายงาน และตาราง ผ.1 แผนการปรับปรุงพื้นที่สีเขียว · 6 หน้า",f:"files/manual/EcoAssessment_LabManual_v2025.pdf",ic:"pdf",alt:[["Word","files/manual/EcoAssessment_LabManual_v2025.docx"]]},
  {t:"คู่มือเกณฑ์การวิเคราะห์ศักยภาพพื้นที่สีเขียวในเมือง เพื่อสนับสนุนความเป็นกลางทางคาร์บอน",d:"กรมการเปลี่ยนแปลงสภาพภูมิอากาศและสิ่งแวดล้อม (2568) · นิยาม · 15 ตัวชี้วัด · วิธีใช้โปรแกรม · เทคนิคเก็บข้อมูล · แนวทางพัฒนาพื้นที่สีเขียว · 196 หน้า (19 MB)",f:"files/manual/GreenSpace_Criteria_Manual_2568.pdf",ic:"pdf"},
- {t:"โปรแกรมวิเคราะห์ศักยภาพพื้นที่สีเขียว (Excel) + ชีทคาดการณ์คาร์บอน",d:"Save As เป็นชื่อกลุ่มย่อยก่อนกรอก · แผ่นงาน 1–7 · บันทึกไม้ต้นปัจจุบัน/ปีฐาน · Printบันทึกข้อมูลพืชภาคสนาม · คาดการณ์ (15 MB)",f:"files/tools/GreenSpace_Assessment_Tool.xlsx",ic:"xls",dl:true},
+ {t:"โปรแกรมวิเคราะห์ศักยภาพพื้นที่สีเขียว (Excel) + ชีทคาดการณ์คาร์บอน",d:"เอกสารประกอบ/ศึกษาเพิ่มเติม (ไม่ต้องส่ง — ส่งผลการคำนวณจากเว็บเป็น PDF แทน) · มีแผ่นงาน “Printบันทึกข้อมูลพืชภาคสนาม” สำหรับพิมพ์ไปจดข้อมูลต้นไม้ (15 MB)",f:"files/tools/GreenSpace_Assessment_Tool.xlsx",ic:"xls",dl:true},
  {t:"สไลด์ Brief ปฏิบัติการ",d:"ประกอบ VDO brief · 15 หน้า",f:"files/manual/Brief_Slides_2568.pdf",ic:"pdf"},
  {t:"VDO Brief (YouTube)",d:"ชมก่อนเริ่มปฏิบัติการ",f:"#video",ic:"vid",internal:true},
  {t:"Pretest: การประเมินบริการของระบบนิเวศ",d:"แบบทดสอบก่อนเรียน (Word)",f:"files/tools/Pretest_EcosystemServices.docx",ic:"doc",dl:true}
@@ -759,7 +786,8 @@ const CHECK = [
  "อภิปราย: ความแตกต่างของคะแนน · ข้อจำกัด · ความยาก–ง่าย · การนำไปประยุกต์ใช้",
  "สรุปผลตามวัตถุประสงค์ (ไม่บรรยายผลซ้ำ)",
  "เอกสารอ้างอิง",
- "ไฟล์ Excel ของกลุ่มย่อยครบ 2 ไฟล์ ตั้งชื่อถูกต้อง และคำตอบที่สมมุติเป็นตัวอักษรสีแดง"];
+ "ไฟล์ PDF ผลการคำนวณของกลุ่มย่อยครบ 2 ไฟล์ (เช่น A1.1_ผลการคำนวณ, A1.2_ผลการคำนวณ) ระบุข้อมูลที่สมมุติไว้แล้ว",
+ "ไฟล์รายงานตั้งชื่อถูกต้อง (เช่น A1_รายงาน)"];
 
 /* ======================= UTIL ======================= */
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -826,7 +854,7 @@ let S=store.get("score",{});
 $("#siteType").innerHTML=TYPES.map(t=>`<option>${t}</option>`).join("");
 const AREA_IDS=["aTotal","aOut","aRoof","aWater","aCanopy","aHard"];
 function buildIndCard(){
- let h=`<h3>ตัวชี้วัด 15 ข้อ</h3><p class="muted" style="font-size:.84rem">ข้อ 1.1, 1.5, 2.2 คำนวณจากขนาดพื้นที่ด้านบนอัตโนมัติ · ข้อที่ไม่ทราบให้สมมุติค่าได้ (ระบุในรายงาน)</p>`;
+ let h=`<h3>ตัวชี้วัด 15 ข้อ</h3><p class="muted" style="font-size:.84rem">ข้อ 1.1, 1.5, 2.2 คำนวณจากขนาดพื้นที่ด้านบนอัตโนมัติ · ข้อที่ไม่ทราบให้สมมุติค่าได้ และระบุในช่อง “ข้อมูลที่สมมุติ/หมายเหตุ” ด้านล่าง</p>`;
  DOMAINS.forEach(D=>{h+=`<div class="dom-head"><b><span class="pill ${D.cls}" style="color:#fff">${D.id}</span> ${D.name}</b><span class="muted" id="dsum${D.id}"></span></div>`;
   IND.filter(i=>i.d===D.id).forEach(i=>{let ctl="";
    if(i.kind==="auto") ctl=`<div class="muted" style="font-size:.88rem" id="v${i.id}">–</div>`;
@@ -841,10 +869,10 @@ function buildIndCard(){
 }
 buildIndCard();
 function bindInputs(){
- $("#siteName").value=S.siteName||""; $("#siteType").value=S.siteType||TYPES[0];
+ ["siteName","groupCode","evalDate","members","notes"].forEach(k=>$("#"+k).value=S[k]||""); $("#siteType").value=S.siteType||TYPES[0];
  AREA_IDS.forEach(id=>$("#"+id).value=S[id]??"");
  $$("#indCard [data-k]").forEach(el=>{const k=el.dataset.k; if(el.type==="checkbox") el.checked=!!S[k]; else el.value=S[k]??""});
- const save=e=>{const el=e.target; if(!el.matches("input,select"))return; const k=el.dataset.k||el.id; S[k]=el.type==="checkbox"?el.checked:el.value; store.set("score",S); renderScore()};
+ const save=e=>{const el=e.target; if(!el.matches("input,select,textarea"))return; const k=el.dataset.k||el.id; S[k]=el.type==="checkbox"?el.checked:el.value; store.set("score",S); renderScore()};
  $("#s-score").addEventListener("input",save); $("#s-score").addEventListener("change",save);
 }
 const thScore=(v,th)=>v>=th[0]?5:v>=th[1]?3:v>=th[2]?1:0;
@@ -880,7 +908,7 @@ function renderScore(){
  IND.forEach(i=>{const s=res[i.id]; const el=$("#sc"+CSS.escape(i.id)); el.innerHTML=s==null?`<span class="muted" style="font-size:1rem">–</span>`:`${s}<small class="muted">/5</small>`; el.style.color=s==null?"":s>=5?"var(--ok)":s<=1?"var(--bad)":"var(--ink)"; if(s!=null){filled++;total+=s;ds[i.d-1]+=s}});
  DOMAINS.forEach(D=>$("#dsum"+D.id).textContent=`${ds[D.id-1]}/25`);
  const pct=total/75*100;
- $("#resName").textContent=S.siteName||"";
+ $("#resName").textContent=[S.groupCode,S.siteName].filter(Boolean).join(" · ");
  $("#rTotal").textContent=filled?total:"–"; $("#rPct").textContent=filled?`${fmt(pct,1)}%`:"";
  $("#rLevel").textContent=filled?level(pct):"–"; $("#rLevel").style.color=filled?(pct>=70?"var(--ok)":pct>=50?"var(--ink)":"var(--bad)"):"";
  $("#rFilled").textContent=`ประเมินแล้ว ${filled}/15 ตัวชี้วัด`+(filled<15?" (ข้อที่ยังไม่กรอกนับเป็น 0)":"");
@@ -912,7 +940,21 @@ function drawRadar(res){
 }
 bindInputs(); renderScore();
 $("#btnReset").onclick=()=>{if(confirm("ล้างข้อมูลการประเมินทั้งหมด?")){S={};store.set("score",S);bindInputs();renderScore()}};
-$("#btnPrint").onclick=()=>window.print();
+$("#btnPrint").onclick=()=>{
+ if(!(S.groupCode||"").trim()||!(S.siteName||"").trim()){alert("กรุณากรอก “รหัสกลุ่มย่อย” และ “ชื่อพื้นที่สีเขียว” ก่อนบันทึก PDF");$("#groupCode").focus();return}
+ const code=S.groupCode.trim().replace(/\s+/g,""), {res}=computeScores(), filled=IND.filter(i=>res[i.id]!=null).length;
+ if(filled<15&&!confirm(`ยังประเมินไม่ครบ (${filled}/15 ตัวชี้วัด) ข้อที่ไม่กรอกจะนับเป็น 0 — ต้องการบันทึก PDF ต่อหรือไม่?`))return;
+ const ts=treeSummary();
+ $("#printHead").innerHTML=`<div style="font-size:16px;font-weight:700">ผลการคำนวณศักยภาพพื้นที่สีเขียว — กลุ่มย่อย ${esc(code)}</div>
+  <div>พื้นที่: <b>${esc(S.siteName)}</b> · ประเภท: ${esc(S.siteType||TYPES[0])} · วันที่ประเมิน: ${esc(S.evalDate||"-")}</div>
+  <div>สมาชิก: ${esc(S.members||"-")}</div>
+  <div>ไม้ต้นที่วัด ${ts.n} ต้น · CO₂ สะสม ${fmt(ts.sum,3)} tCO₂e · ${fmt(ts.per,3)} tCO₂e/ไร่ · พิมพ์เมื่อ ${new Date().toLocaleString("th-TH")}</div>
+  ${S.notes?`<div style="margin-top:4px"><b>ข้อมูลที่สมมุติ/หมายเหตุ:</b> ${esc(S.notes).replace(/\n/g,"<br>")}</div>`:""}
+  <div style="font-size:11px;color:#555">2303222 Ecology Laboratory · ปฏิบัติการการประเมินศักยภาพระบบนิเวศและการสร้างแผนการจัดการ</div>`;
+ $$("#treeTbl tbody tr").forEach((tr,k)=>{const r=T.rows[k]||{};tr.classList.toggle("empty",!(r.name||r.gbh||r.h||r.cl))});
+ const old=document.title; document.title=`${code}_ผลการคำนวณ`; document.body.classList.add("printing-calc");
+ const done=()=>{document.title=old;document.body.classList.remove("printing-calc");window.removeEventListener("afterprint",done)};
+ window.addEventListener("afterprint",done); window.print()};
 $("#btnCsv").onclick=()=>{const {res,vals}=computeScores(); const rows=[["ตัวชี้วัด","ชื่อ","ค่าที่วัดได้","คะแนน (เต็ม 5)"]];
  IND.forEach(i=>rows.push([i.id,i.name,Number.isFinite(vals[i.id])?vals[i.id].toFixed(2):"",res[i.id]??""]));
  const t=IND.reduce((s,i)=>s+(res[i.id]||0),0); rows.push([],["รวม","",'',t],["ร้อยละ","","",(t/75*100).toFixed(1)],["ระดับศักยภาพ","","",level(t/75*100)],["พื้นที่",S.siteName||"","ประเภท",S.siteType||TYPES[0]]);
