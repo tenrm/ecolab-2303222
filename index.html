@@ -15,12 +15,15 @@
   --brand:#1f7a4d; --brand-ink:#ffffff; --brand-soft:#e1f1e7; --accent:#c9822b;
   --d1:#2f855a; --d2:#2b6cb0; --d3:#b7791f; --bad:#c53030; --ok:#2f855a;
   --shadow:0 1px 2px rgba(0,0,0,.05),0 4px 14px rgba(0,0,0,.05); --r:14px;
+  --orange:#c2560c; --orange-soft:#fff3e8; --orange-line:#f5b27a;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
   --bg:#0f1512; --surface:#161e19; --surface-2:#1d2721; --ink:#e6eee8; --ink-2:#a3b3a8; --line:#2b3830;
   --brand:#48b17c; --brand-ink:#0b1410; --brand-soft:#1c3327; --accent:#e0a55a;
-  --d1:#5fc48e; --d2:#6aa9ec; --d3:#e2b25a; --bad:#f07070; --ok:#5fc48e; --shadow:none; }}
+  --d1:#5fc48e; --d2:#6aa9ec; --d3:#e2b25a; --bad:#f07070; --ok:#5fc48e; --shadow:none;
+  --orange:#f59a52; --orange-soft:#2e1d10; --orange-line:#7a4618; }}
 :root[data-theme="dark"]{
+  --orange:#f59a52; --orange-soft:#2e1d10; --orange-line:#7a4618;
   --bg:#0f1512; --surface:#161e19; --surface-2:#1d2721; --ink:#e6eee8; --ink-2:#a3b3a8; --line:#2b3830;
   --brand:#48b17c; --brand-ink:#0b1410; --brand-soft:#1c3327; --accent:#e0a55a;
   --d1:#5fc48e; --d2:#6aa9ec; --d3:#e2b25a; --bad:#f07070; --ok:#5fc48e; --shadow:none; }
@@ -178,6 +181,14 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
   a[href]{color:inherit;text-decoration:none}
 }
 .print-only{display:none}
+.limits{background:var(--orange-soft);border:2px solid var(--orange-line);border-left:8px solid var(--orange);border-radius:var(--r);padding:18px 20px;margin-top:8px}
+.limits h2{color:var(--orange)}
+.limits ol{margin:.3em 0 0;padding-left:1.3em}
+.limits li{margin:.35em 0}
+.limits b{color:var(--orange)}
+.src{display:inline-block;font-size:.72rem;font-weight:600;border-radius:6px;padding:0 7px;white-space:nowrap}
+.src.real{background:var(--brand-soft);color:var(--brand)}
+.src.mock{background:var(--orange-soft);color:var(--orange);border:1px solid var(--orange-line)}
 .wsbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--brand-soft);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:14px}
 .wsbar select{width:auto;min-width:220px;font-weight:600}
 .wsbar .sep{flex:1}
@@ -209,6 +220,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
   <a href="#plants" data-p="plants"><span class="n">4</span>พรรณไม้แนะนำ</a>
   <a href="#plan" data-p="plan"><span class="n">5</span>แผนการจัดการ</a>
   <a href="#report" data-p="report"><span class="n">6</span>รายงาน &amp; การส่งงาน</a>
+  <a href="#example" data-p="example"><span class="n">7</span>ตัวอย่างบ้านทุ่งกราด</a>
   <div class="side-foot">
     <div id="sideDates"></div>
     <button class="theme-btn" id="themeBtn" type="button">สลับโหมดสว่าง/มืด</button>
@@ -271,6 +283,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
         <ul class="clean">
           <li>ศึกษาเกณฑ์การให้คะแนนจากหน้า <a href="#criteria">เกณฑ์ 15 ตัวชี้วัด</a> และคู่มือเกณฑ์ฯ</li>
           <li>กรอกรหัสกลุ่มย่อย ขนาดพื้นที่ ข้อมูลตัวชี้วัด และข้อมูลต้นไม้ (แท็บ “คาร์บอนต้นไม้”) ให้ครบ</li>
+          <li>ไม่แน่ใจว่าต้องกรอกอย่างไร → ดู <a href="#example">ตัวอย่างบ้านทุ่งกราด</a> (เมนู 7)</li>
           <li>วัดขนาดพื้นที่ด้วย Google Earth Pro (สร้าง polygon) — ดู<a href="#" data-pdf="106">คู่มือเกณฑ์ฯ หน้า 106 เป็นต้นไป</a></li>
           <li>ข้อที่ไม่ทราบ (เช่น การจัดการของสวนสาธารณะ) ให้สมมุติค่าได้ และระบุข้อที่สมมุติในช่อง <b>“ข้อมูลที่สมมุติ/หมายเหตุ”</b></li>
           <li>กด <b>พิมพ์/บันทึก PDF</b> เพื่อบันทึกผลการคำนวณเป็นไฟล์ PDF</li>
@@ -304,6 +317,21 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
       <div class="stat"><b>Supporting</b><div class="l">สนับสนุน: การสร้างดิน ผลผลิตปฐมภูมิ วัฏจักรธาตุอาหารและน้ำ</div></div>
     </div>
     <p class="muted" style="margin-top:10px">ศึกษาเพิ่มเติม: <a href="https://www.sdgmove.com/aboutsdgs" target="_blank" rel="noopener">SDGs 17 เป้าหมาย (SDG Move)</a> · <a href="#video">VDO Ecosystem services</a> · <a href="files/supp/S00_GreenRoof_EcosystemFunction.pdf" target="_blank" rel="noopener">บทความหลังคาเขียว (ภาคผนวกที่ 1)</a></p>
+  </div>
+
+  <div class="limits" id="limits">
+    <h2>⚠ ข้อจำกัดในการใช้งานโปรแกรมนี้</h2>
+    <ol>
+      <li><b>ข้อมูลเก็บไว้ในเบราว์เซอร์ของเครื่องที่ใช้เท่านั้น</b> ไม่มีเซิร์ฟเวอร์กลาง — ข้อมูลจะหายถ้าใช้โหมดไม่ระบุตัวตน (Incognito) ล้างประวัติ/ข้อมูลเว็บ หรือเปลี่ยนเครื่อง/เบราว์เซอร์ ควรกด <b>“บันทึกไฟล์งาน (.json)”</b> เก็บไว้เป็นระยะ และบันทึก PDF ทันทีเมื่อกรอกเสร็จ</li>
+      <li><b>สมาชิกกรอกพร้อมกันแบบ real-time ไม่ได้</b> — ใช้การส่งไฟล์งานต่อกัน การ “เปิดไฟล์งาน” จะแทนที่หรือเพิ่มเป็นงานใหม่ ไม่รวม (merge) การแก้ไขของสองคนเข้าด้วยกัน จึงควรให้กรอกทีละคน</li>
+      <li><b>เป็นการประเมินแบบรวดเร็ว (rapid assessment) เพื่อการเรียนรู้</b> ผลขึ้นกับคุณภาพข้อมูลที่วัดได้และค่าที่สมมุติ ไม่ใช่การรับรองหรือการประเมินอย่างเป็นทางการ</li>
+      <li><b>การคำนวณคาร์บอนใช้สมการแอลโลเมตรีทั่วไป</b> (Tsutsumi et al., 1983) สำหรับไม้ต้นเท่านั้น ไม่แยกตามชนิดพันธุ์/ระบบนิเวศ ไม่รวมไม้หนุ่ม กล้าไม้ ปาล์ม และไผ่ และค่ามวลใบอาจต่างจากไฟล์ Excel เล็กน้อย</li>
+      <li><b>ตัวชี้วัด 2.1 กรณีไม่มีข้อมูลปีฐาน</b> ใช้ค่าคาดการณ์ 0.0095 tCO₂e/ต้น/ปี ซึ่งเป็นค่าเฉลี่ย ไม่ใช่การเติบโตจริงของต้นไม้ในพื้นที่ ต้องระบุในรายงานว่าเป็นค่าคาดการณ์</li>
+      <li><b>ขนาดพื้นที่จาก Google Earth Pro มีความคลาดเคลื่อน</b> ภาพดาวเทียมอาจไม่เป็นปัจจุบัน เรือนยอดที่ซ้อนกันหรืออยู่ใต้หลังคาวัดได้ยาก ควรตรวจสอบกับสภาพจริงในภาคสนาม</li>
+      <li><b>การบันทึก PDF ขึ้นกับเบราว์เซอร์</b> แนะนำ Chrome หรือ Edge บนคอมพิวเตอร์ (เลือกปลายทาง “บันทึกเป็น PDF”) บนมือถือบางรุ่นอาจตั้งชื่อไฟล์อัตโนมัติไม่ได้ ให้ตั้งชื่อเองตามรูปแบบที่กำหนด</li>
+      <li><b>ผล Pretest เก็บในเครื่องของนิสิต</b> อาจารย์ไม่เห็นผลโดยอัตโนมัติ</li>
+      <li><b>ต้องใช้อินเทอร์เน็ต</b> ในการเปิดเว็บ ดู VDO และดาวน์โหลดเอกสาร (คู่มือเกณฑ์ฯ 19 MB, ไฟล์ Excel 15 MB)</li>
+    </ol>
   </div>
 </section>
 
@@ -403,7 +431,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
 <!-- ================= CALC ================= -->
 <section class="page" id="p-calc">
   <h1>เครื่องมือคำนวณ</h1>
-  <p class="muted">กรอกข้อมูลให้ครบทั้งแท็บ “คะแนน 15 ตัวชี้วัด” และ “คาร์บอนต้นไม้” แล้วกด <b>พิมพ์/บันทึก PDF</b> → ส่งไฟล์ชื่อ <code>รหัสกลุ่มย่อย_ผลการคำนวณ.pdf</code> · ข้อมูลที่กรอกจำไว้ในเบราว์เซอร์เครื่องนี้เท่านั้น (ใช้เครื่อง/เบราว์เซอร์เดิมเมื่อกลับมาแก้ไข)</p>
+  <p class="muted">กรอกข้อมูลให้ครบทั้งแท็บ “คะแนน 15 ตัวชี้วัด” และ “คาร์บอนต้นไม้” แล้วกด <b>พิมพ์/บันทึก PDF</b> → ส่งไฟล์ชื่อ <code>รหัสกลุ่มย่อย_ผลการคำนวณ.pdf</code> · ไม่แน่ใจวิธีกรอก ดู <a href="#example">ตัวอย่างบ้านทุ่งกราด</a> · ข้อมูลที่กรอกจำไว้ในเบราว์เซอร์เครื่องนี้เท่านั้น</p>
   <div class="print-only" id="printHead" style="border-bottom:2px solid #1f7a4d;padding-bottom:8px;margin-bottom:12px"></div>
   <div class="wsbar noprint" id="wsBar">
     <label for="wsSel" style="font-weight:600">งานของกลุ่มย่อย:</label>
@@ -661,6 +689,82 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
     <p style="font-size:.9rem">Millennium Ecosystem Assessment. 2005. <i>Ecosystems and Human Well-Being: Synthesis.</i> Washington, D.C.: Island Press.<br>
     Hoeben, A.D. and Posch, A. 2021. Green roof ecosystem services in various urban development types: a case study in Graz, Austria. <i>Urban Forestry &amp; Urban Greening</i> 62: 127167. doi:10.1016/j.ufug.2021.127167<br>
     กรมการเปลี่ยนแปลงสภาพภูมิอากาศและสิ่งแวดล้อม. 2568. คู่มือเกณฑ์การวิเคราะห์ศักยภาพพื้นที่สีเขียวในเมือง เพื่อสนับสนุนความเป็นกลางทางคาร์บอน. กรุงเทพฯ: กรมการเปลี่ยนแปลงสภาพภูมิอากาศและสิ่งแวดล้อม.</p>
+  </div>
+</section>
+
+
+<!-- ================= EXAMPLE ================= -->
+<section class="page" id="p-example">
+  <h1>ตัวอย่าง: โรงเรียนผู้สูงอายุ บ้านทุ่งกราด</h1>
+  <p class="muted">ตัวอย่างการกรอกข้อมูลในเมนู 3 เครื่องมือคำนวณ จากการประเมินจริงในการอบรมของโครงการฯ (24 ธ.ค. 2567) · ส่วนที่ไม่มีข้อมูลจริงได้สุ่มสร้างขึ้นเพื่อให้เห็นวิธีกรอก
+  <span class="src real">ข้อมูลจริง</span> <span class="src mock">สมมุติ</span></p>
+
+  <div class="card" style="border:2px solid var(--brand)">
+    <div class="row" style="justify-content:space-between">
+      <div><h3 style="margin:0">ลองเปิดตัวอย่างในเครื่องมือคำนวณ</h3><p class="muted" style="margin:.2em 0 0">ระบบจะเพิ่มงาน “ตัวอย่าง-บ้านทุ่งกราด” เป็นกลุ่มย่อยแยกต่างหาก ไม่ทับงานของกลุ่มนิสิต · ลองแก้ค่าแล้วดูคะแนนเปลี่ยนได้ (ห้ามส่งไฟล์ตัวอย่างนี้เป็นงาน)</p></div>
+      <button class="btn pri" id="exLoad" type="button">เปิดตัวอย่างในเครื่องมือคำนวณ →</button>
+    </div>
+  </div>
+
+  <div class="grid g4 keep2">
+    <div class="stat"><div class="l">พื้นที่ทั้งหมด</div><div class="v" style="font-size:1.25rem">11,496 ตร.ม.</div><div class="l">7.185 ไร่</div></div>
+    <div class="stat"><div class="l">พื้นที่ปลูกพืชนอกอาคาร (8 แปลง)</div><div class="v" style="font-size:1.25rem">1,864.6 ตร.ม.</div><div class="l">1.165 ไร่ · 16.2%</div></div>
+    <div class="stat"><div class="l">ไม้ต้นในแปลงสำรวจ 1 ไร่</div><div class="v" style="font-size:1.25rem" id="exN">–</div><div class="l">จากที่บันทึก 40 ต้น</div></div>
+    <div class="stat"><div class="l">ผลการประเมิน</div><div class="v" style="font-size:1.25rem" id="exRes">–</div><div class="l" id="exLvl"></div></div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>ขั้นที่ 1 · ข้อมูลพื้นที่ (กล่อง “ข้อมูลพื้นที่”)</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>ช่องที่กรอก</th><th>ค่าที่กรอก</th><th>ได้มาจาก</th><th>ที่มา</th></tr>
+      <tr><td>รหัสกลุ่มย่อย</td><td>ตัวอย่าง-บ้านทุ่งกราด</td><td>นิสิตใส่รหัสกลุ่มของตัวเอง เช่น A1.1</td><td><span class="src mock">สมมุติ</span></td></tr>
+      <tr><td>วันที่ประเมิน</td><td>24 ธ.ค. 2567</td><td>วันที่ลงพื้นที่</td><td><span class="src real">ข้อมูลจริง</span></td></tr>
+      <tr><td>ชื่อพื้นที่สีเขียว</td><td>โรงเรียนผู้สูงอายุ บ้านทุ่งกราด</td><td>ชื่อทางการของพื้นที่</td><td><span class="src real">ข้อมูลจริง</span></td></tr>
+      <tr><td>ประเภทพื้นที่สีเขียว</td><td>อรรถประโยชน์</td><td>พื้นที่สีเขียวของหน่วยงาน/สถานศึกษา (ดูคู่มือเกณฑ์ฯ หน้า 23)</td><td><span class="src mock">สมมุติ</span></td></tr>
+      <tr><td>สมาชิกกลุ่มย่อย</td><td>นาย ก ใจดี 6730000023, นางสาว ข รักษ์ป่า 6730000123</td><td>ชื่อ–รหัสนิสิต</td><td><span class="src mock">สมมุติ</span></td></tr>
+      <tr><td>พื้นที่ทั้งหมด (หน่วยงาน)</td><td>11496</td><td>polygon ขอบเขตทั้งหมดใน Google Earth Pro (ตร.ม.)</td><td><span class="src real">ข้อมูลจริง</span></td></tr>
+      <tr><td>ปลูกพืชนอกอาคาร</td><td>1864.6</td><td>ผลรวม polygon 8 แปลง (ตารางด้านล่าง)</td><td><span class="src real">ข้อมูลจริง</span></td></tr>
+      <tr><td>สวนดาดฟ้า/หลังคา · แหล่งน้ำ</td><td>0 · 0</td><td>ไม่มีในพื้นที่</td><td><span class="src real">ข้อมูลจริง</span></td></tr>
+      <tr><td>เรือนยอดไม้ต้น/ปาล์ม/ไผ่</td><td>1864.6</td><td>polygon เรือนยอด (ในตัวอย่างนี้ใช้ขอบเขตเดียวกับแปลงปลูก)</td><td><span class="src real">ข้อมูลจริง</span></td></tr>
+      <tr><td>ดาดแข็ง</td><td>4200</td><td>ลานคอนกรีต/ถนน/อาคาร (ไม่บังคับ)</td><td><span class="src mock">สมมุติ</span></td></tr>
+    </table></div>
+    <details style="margin-top:10px"><summary style="cursor:pointer;font-weight:500">ดูขนาด polygon พื้นที่ปลูกพืชนอกอาคาร 8 แปลง</summary>
+      <div class="tbl-wrap" style="margin-top:8px;max-width:520px"><table>
+        <tr><th>แปลง</th><th style="text-align:right">ตร.ม.</th><th style="text-align:right">ไร่</th></tr>
+        <tr><td>1</td><td style="text-align:right">252</td><td style="text-align:right">0.1575</td></tr><tr><td>2</td><td style="text-align:right">478</td><td style="text-align:right">0.2988</td></tr><tr><td>3</td><td style="text-align:right">329</td><td style="text-align:right">0.2056</td></tr><tr><td>4</td><td style="text-align:right">376</td><td style="text-align:right">0.2350</td></tr><tr><td>5</td><td style="text-align:right">19.6</td><td style="text-align:right">0.0123</td></tr><tr><td>6</td><td style="text-align:right">303</td><td style="text-align:right">0.1894</td></tr><tr><td>7</td><td style="text-align:right">26.2</td><td style="text-align:right">0.0164</td></tr><tr><td>8</td><td style="text-align:right">80.8</td><td style="text-align:right">0.0505</td></tr><tr><td><b>รวม</b></td><td style="text-align:right"><b>1,864.6</b></td><td style="text-align:right"><b>1.1654</b></td></tr>
+      </table></div>
+      <p class="muted" style="font-size:.85rem">วัดแต่ละแปลงด้วยเครื่องมือ Polygon แล้วนำมารวมกัน → กรอกผลรวมในช่อง “ปลูกพืชนอกอาคาร”</p>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3>ขั้นที่ 2 · ข้อมูลต้นไม้ (แท็บ “คาร์บอนต้นไม้”)</h3>
+    <ul class="clean">
+      <li>พื้นที่แปลงสำรวจ <b>1 ไร่</b> · ปี พ.ศ. ที่เก็บข้อมูล <b>2567</b> <span class="src real">ข้อมูลจริง</span></li>
+      <li>คาร์บอนปีฐาน <b>5.5 tCO₂e/ไร่</b> ปี <b>2566</b> <span class="src mock">สมมุติ</span> — ถ้าไม่มีข้อมูลปีฐาน ให้เว้นว่าง ระบบจะใช้ค่าคาดการณ์ 0.0095 tCO₂e/ต้น/ปีแทน</li>
+      <li>วัดเส้นรอบวงที่ระดับอก (GBH) ได้ 33 ต้น <span class="src real">ข้อมูลจริง</span> · ชื่อต้นไม้ และอีก 7 ต้นที่ยังไม่ได้วัด <span class="src mock">สมมุติ</span></li>
+      <li>ต้นที่ 1–5 วัดความสูงด้วยไคลโนมิเตอร์ (ค่าที่อ่านได้ + ความสูงระดับสายตา) · ต้นที่ 6–8 วัดความสูงทั้งต้นได้โดยตรง</li>
+      <li>ต้นที่ GBH 10 ซม. (DBH ≈ 3.2 ซม. &lt; 4.5 ซม.) <b>ไม่นับเป็นไม้ต้น</b> โปรแกรมจะแจ้ง “ไม่ใช่ไม้ต้น” และไม่นำมาคำนวณ</li>
+      <li>กรอกครบแล้วกด <b>“ส่งค่าไปใช้ในตัวชี้วัด 1.2 และ 2.1”</b> → จำนวนต้น/ความหนาแน่น และการดูดซับต่อปีจะไปเติมในแท็บคะแนนให้อัตโนมัติ</li>
+    </ul>
+    <div class="tbl-wrap" style="max-height:340px;overflow:auto"><table id="exTrees"></table></div>
+  </div>
+
+  <div class="card">
+    <h3>ขั้นที่ 3 · ตัวชี้วัด 15 ข้อ (แท็บ “คะแนน 15 ตัวชี้วัด”)</h3>
+    <div class="tbl-wrap"><table id="exInd"></table></div>
+    <p class="muted" style="font-size:.85rem;margin-top:8px">ข้อ 3.2 ในไฟล์ Excel ต้นฉบับได้ 0 คะแนน เพราะตัวเลือก “4 ข้อ” ไม่ตรงกับเงื่อนไขในสูตร — ตามเกณฑ์ (ดำเนินการ 3–4 ข้อ) ควรได้ 3 คะแนน ซึ่งเครื่องมือในเว็บนี้คำนวณถูกต้องแล้ว</p>
+  </div>
+
+  <div class="card">
+    <h3>ขั้นที่ 4 · ช่อง “ข้อมูลที่สมมุติ/หมายเหตุ”</h3>
+    <div class="callout" style="white-space:pre-line;font-size:.9rem" id="exNotes"></div>
+  </div>
+
+  <div class="card">
+    <h3>ตัวอย่างการเขียนบรรยายผล (สำหรับรายงาน)</h3>
+    <p id="exText" style="text-indent:2em"></p>
+    <p class="muted" style="font-size:.85rem">สังเกต: บรรยายเฉพาะประเด็นสำคัญพร้อมตัวเลข อ้างถึงภาพ/กราฟ และเชื่อมโยงไปสู่แนวทางการจัดการ</p>
   </div>
 </section>
 
@@ -1260,6 +1364,55 @@ $("#ptPrint").onclick=()=>{if(!PT.done){$("#ptMsg").textContent="กรุณา
  const done=()=>{document.title=old;document.body.classList.remove("printing-pretest");window.removeEventListener("afterprint",done)};
  window.addEventListener("afterprint",done); window.print()};
 renderPT();
+
+/* ======================= EXAMPLE: บ้านทุ่งกราด ======================= */
+const EX_CODE="ตัวอย่าง-บ้านทุ่งกราด";
+const EX_TREES=[{"name": "ยางนา", "gbh": "50", "cl": "25", "eye": "1.5"}, {"name": "นนทรี", "gbh": "50", "cl": "25", "eye": "1.8"}, {"name": "ยางนา", "gbh": "60", "cl": "25", "eye": "2.1"}, {"name": "ยางนา", "gbh": "40", "cl": "25", "eye": "2.4"}, {"name": "ตะแบก", "gbh": "30", "cl": "25", "eye": "2.7"}, {"name": "ราชพฤกษ์", "gbh": "50", "h": "30"}, {"name": "ราชพฤกษ์", "gbh": "50", "h": "25"}, {"name": "ตะแบก", "gbh": "15", "h": "20"}, {"name": "ขี้เหล็ก", "gbh": "10", "cl": "25", "eye": "1.5"}, {"name": "นนทรี", "gbh": "40", "cl": "25", "eye": "1.8"}, {"name": "ตะแบก", "gbh": "30", "cl": "25", "eye": "2.1"}, {"name": "หูกระจง", "gbh": "25", "cl": "25", "eye": "2.4"}, {"name": "อินทนิลน้ำ", "gbh": "20", "cl": "25", "eye": "2.7"}, {"name": "สะเดา", "gbh": "15", "cl": "25", "eye": "1.5"}, {"name": "ชมพู่", "gbh": "10", "cl": "25", "eye": "1.8"}, {"name": "ปีบ", "gbh": "40", "cl": "25", "eye": "2.1"}, {"name": "หูกระจง", "gbh": "30", "cl": "25", "eye": "2.4"}, {"name": "สะเดา", "gbh": "25", "cl": "25", "eye": "2.7"}, {"name": "นนทรี", "gbh": "20", "cl": "25", "eye": "1.5"}, {"name": "ชมพู่", "gbh": "15", "cl": "25", "eye": "1.8"}, {"name": "ลำไย", "gbh": "10", "cl": "25", "eye": "2.1"}, {"name": "ยางนา", "gbh": "40", "cl": "25", "eye": "2.4"}, {"name": "ยางนา", "gbh": "30", "cl": "25", "eye": "2.7"}, {"name": "พิกุล", "gbh": "25", "cl": "25", "eye": "1.5"}, {"name": "ขี้เหล็ก", "gbh": "20", "cl": "25", "eye": "1.8"}, {"name": "ทองหลาง", "gbh": "15", "cl": "25", "eye": "2.1"}, {"name": "ชมพู่", "gbh": "10", "cl": "25", "eye": "2.4"}, {"name": "ขี้เหล็ก", "gbh": "40", "cl": "25", "eye": "2.7"}, {"name": "มะขาม", "gbh": "30", "cl": "25", "eye": "1.5"}, {"name": "อินทนิลน้ำ", "gbh": "25", "cl": "25", "eye": "1.8"}, {"name": "นนทรี", "gbh": "20", "cl": "25", "eye": "2.1"}, {"name": "ขนุน", "gbh": "15", "cl": "25", "eye": "2.4"}, {"name": "มะม่วง", "gbh": "10", "cl": "25", "eye": "2.7"}, {"name": "ลำไย (สมมุติ)", "gbh": "55", "cl": "9", "eye": "1.5"}, {"name": "หูกระจง (สมมุติ)", "gbh": "25", "cl": "8", "eye": "1.5"}, {"name": "ขี้เหล็ก (สมมุติ)", "gbh": "40", "cl": "9", "eye": "1.5"}, {"name": "ลำไย (สมมุติ)", "gbh": "30", "cl": "12", "eye": "1.5"}, {"name": "มะขาม (สมมุติ)", "gbh": "40", "cl": "9", "eye": "1.5"}, {"name": "ขนุน (สมมุติ)", "gbh": "35", "cl": "12", "eye": "1.5"}, {"name": "ปีบ (สมมุติ)", "gbh": "45", "cl": "10", "eye": "1.5"}];
+const EX_NOTES="ข้อมูลจริงจากการประเมินเมื่อ 24 ธ.ค. 2567 (UTM 47P 709568 E 1444101 N)\nสมมุติ: ประเภทพื้นที่ (อรรถประโยชน์), ชื่อต้นไม้ทุกต้น, ต้นไม้ 7 ต้นที่ยังไม่ได้วัด (ต้นที่ 34–40), คาร์บอนปีฐาน 2566 = 5.5 tCO₂e/ไร่, พื้นที่ดาดแข็ง 4,200 ตร.ม.\nข้อ 1.3: ข้อมูลจริงคือ “ไม้ยืนต้น + วิสัยอื่น 2 แบบ” — เลือกไม้พุ่มและไม้ล้มลุกเป็นตัวอย่าง\nข้อ 2.4: ข้อมูลจริงอยู่ในช่วง 12–23 ครั้ง/ปี — ใส่ 15 ครั้ง/ปีเป็นตัวอย่าง\nข้อ 2.3, 2.5, 3.1, 3.2, 3.4: จำนวนข้อเป็นข้อมูลจริง ส่วนการเลือกว่าเป็นข้อใดเป็นการสมมุติ";
+function exScore(){
+ const S={groupCode:EX_CODE,evalDate:"24 ธ.ค. 2567",siteName:"โรงเรียนผู้สูงอายุ บ้านทุ่งกราด",siteType:"อรรถประโยชน์",
+  members:"นาย ก ใจดี 6730000023, นางสาว ข รักษ์ป่า 6730000123",notes:EX_NOTES,
+  aTotal:"11496",aOut:"1864.6",aRoof:"0",aWater:"0",aCanopy:"1864.6",aHard:"4200",
+  h0:true,h1:true,h2:true,h3:false,h4:false,"v1.4":"5","v2.4":"15",
+  "c2.3_0":true,"c2.3_1":false,"c2.3_2":false,
+  "c2.5_0":true,"c2.5_1":true,"c2.5_2":false,"c2.5_3":false,"c2.5_4":false,
+  "c3.1_0":true,"c3.1_1":true,"c3.1_2":false,
+  "c3.2_0":true,"c3.2_1":true,"c3.2_2":true,"c3.2_3":true,"c3.2_4":false,
+  "c3.3_0":false,"c3.3_1":false,"c3.3_2":false,"c3.3_3":false,
+  "c3.4_0":true,"c3.4_1":true,"c3.4_2":false,"c3.4_3":false,
+  a1:true,a2:"1"};
+ const T={rows:EX_TREES.map(r=>({...r})),plot:"1",year:"2567",base:"5.5",baseYear:"2566",excel:false};
+ // ค่าที่ “ส่งไปใช้” จากแท็บต้นไม้
+ let n=0,sum=0; T.rows.forEach(r=>{const c=treeCalcWith(r,T);if(c.co2){n++;sum+=c.co2}});
+ S.n12=String(n); S.p12="1"; S["v2.1"]=((sum/1-5.5)/1).toFixed(3);
+ return {S,T,n,sum};
+}
+function treeCalcWith(r,TT){const keep=T; T=TT; const c=treeCalc(r); T=keep; return c}
+function renderExample(){
+ const {S:eS,T:eT,n,sum}=exScore();
+ const keepS=S; S=eS; const {res,vals}=computeScores(); S=keepS;
+ const tot=IND.reduce((a,i)=>a+(res[i.id]||0),0), pct=tot/75*100;
+ $("#exN").textContent=`${n} ต้น`; $("#exRes").textContent=`${tot}/75 (${fmt(pct,1)}%)`; $("#exLvl").textContent="ระดับ: "+level(pct);
+ $("#exTrees").innerHTML=`<tr><th>#</th><th>ชื่อต้นไม้</th><th>GBH (ซม.)</th><th>สูงทั้งต้น (ม.)</th><th>ไคลโนฯ (ม.)</th><th>ระดับสายตา (ม.)</th><th>tCO₂e</th><th>ที่มา</th></tr>`+
+  eT.rows.map((r,k)=>{const c=treeCalcWith(r,eT);const mock=k>=33;return `<tr><td>${k+1}</td><td>${esc(r.name)}</td><td>${r.gbh}</td><td>${r.h||""}</td><td>${r.cl||""}</td><td>${r.eye||""}</td><td>${c.co2?fmt(c.co2,4):`<span class="warn" style="font-size:.78rem">${c.err||""}</span>`}</td><td><span class="src ${mock?"mock":"real"}">${mock?"สมมุติ":"จริง*"}</span></td></tr>`}).join("")+
+  `<tr><td colspan="6" style="text-align:right"><b>รวม (${n} ต้นที่เป็นไม้ต้น)</b></td><td><b>${fmt(sum,3)}</b></td><td></td></tr>`;
+ const how={"1.1":"คำนวณอัตโนมัติจาก (1,864.6 ÷ 11,496) × 100","1.2":`${n} ต้น ÷ แปลงสำรวจ 1 ไร่ (ส่งค่าจากแท็บต้นไม้)`,"1.3":"✓ไม้ยืนต้น ✓ไม้พุ่ม ✓ไม้ล้มลุก (ไม่พบไม้เถา ไม่มีสิ่งสนับสนุนสัตว์)","1.4":"เลือก “> 3.125 ไร่ + มีทางเชื่อมสีเขียว”","1.5":"ไม่มีแหล่งน้ำ (0 ตร.ม.)",
+  "2.1":`(${fmt(sum,3)} − 5.5) ÷ 1 ปี (ส่งค่าจากแท็บต้นไม้)`,"2.2":"คำนวณอัตโนมัติจากเรือนยอด 1,864.6 ตร.ม.","2.3":"✓ข้อ 1 มีป้ายสื่อความรู้","2.4":"กรอก 15 ครั้ง/ปี","2.5":"✓ข้อ 1 อุปโภค–บริโภค ✓ข้อ 2 ประดับตกแต่ง",
+  "3.1":"✓ข้อ 1 นโยบาย/เป้าหมาย ✓ข้อ 2 โครงสร้างบุคลากร","3.2":"✓ต้นไม้ ✓ดิน ✓น้ำ ✓ขยะ","3.3":"ไม่ติ๊กข้อใด (ยังไม่มีฐานข้อมูล)","3.4":"✓ข้อ 1 ร่วมรับรู้/ตัดสินใจ ✓ข้อ 2 ร่วมลงมือ","3.5":"✓ข้อ 1 + ข้อ 2 จำนวน 1 กิจกรรม"};
+ const srcK={"1.1":"real","1.2":"real","1.3":"mix","1.4":"real","1.5":"real","2.1":"mix","2.2":"real","2.3":"mix","2.4":"mix","2.5":"mix","3.1":"mix","3.2":"mix","3.3":"real","3.4":"mix","3.5":"real"};
+ $("#exInd").innerHTML=`<tr><th>ข้อ</th><th>ตัวชี้วัด</th><th>สิ่งที่กรอก/เลือก</th><th>ค่า</th><th style="text-align:right">คะแนน</th><th>ที่มา</th></tr>`+
+  IND.map(i=>{const v=vals[i.id];return `<tr><td><span class="pill ${DOMAINS[i.d-1].cls}" style="color:#fff">${i.id}</span></td><td>${esc(i.name)}</td><td>${how[i.id]}</td><td>${Number.isFinite(v)?fmt(v,2)+(i.unit?" "+i.unit:""):""}</td><td style="text-align:right;font-weight:700">${res[i.id]}</td><td>${srcK[i.id]==="real"?'<span class="src real">ข้อมูลจริง</span>':'<span class="src mock">จริง+สมมุติ</span>'}</td></tr>`}).join("")+
+  DOMAINS.map(D=>`<tr><td></td><td colspan="3" style="text-align:right">รวมด้าน${D.name}</td><td style="text-align:right;font-weight:700">${IND.filter(i=>i.d===D.id).reduce((a,i)=>a+res[i.id],0)}/25</td><td></td></tr>`).join("")+
+  `<tr><td></td><td colspan="3" style="text-align:right"><b>รวม</b></td><td style="text-align:right"><b>${tot}/75</b></td><td>${fmt(pct,1)}% · ${level(pct)}</td></tr>`;
+ $("#exNotes").textContent=EX_NOTES;
+ const d=DOMAINS.map(D=>IND.filter(i=>i.d===D.id).reduce((a,i)=>a+res[i.id],0));
+ $("#exText").innerHTML=`ผลการวิเคราะห์ศักยภาพพื้นที่สีเขียวของโรงเรียนผู้สูงอายุ บ้านทุ่งกราด (ภาพที่ x) ได้คะแนนรวม ${tot} จาก 75 คะแนน (ร้อยละ ${fmt(pct,1)}) อยู่ในระดับ “${level(pct)}” โดยด้านระบบนิเวศได้คะแนนสูงที่สุด (${d[0]}/25) เนื่องจากมีความหนาแน่นของไม้ต้นสูง (${n} ต้น/ไร่) และมีพื้นที่สีเขียวข้างเคียงขนาดใหญ่ที่เชื่อมต่อกัน (ข้อ 1.2 และ 1.4 ได้ 5 คะแนน) แต่สัดส่วนพื้นที่สีเขียวยังต่ำเพียงร้อยละ ${fmt(vals["1.1"],1)} ของพื้นที่ทั้งหมด และไม่มีแหล่งน้ำ ส่วนด้านผลประโยชน์ร่วม (${d[1]}/25) และด้านการจัดการ (${d[2]}/25) ได้คะแนนน้อย โดยเฉพาะการดูดซับคาร์บอนไดออกไซด์ (${fmt(vals["2.1"],2)} tCO₂e/ไร่/ปี) เรือนยอดปกคลุมร้อยละ ${fmt(vals["2.2"],1)} และยังไม่มีฐานข้อมูลพื้นที่สีเขียว (ข้อ 3.3 ได้ 0 คะแนน) ดังนั้นแนวทางการจัดการควรเน้นการเพิ่มพื้นที่ปลูกไม้ต้นและเรือนยอด การสร้างแหล่งน้ำขนาดเล็ก และการจัดทำฐานข้อมูลต้นไม้เพื่อติดตามการเติบโต (ภาพที่ y)`;
+}
+$("#exLoad").onclick=()=>{const {S:eS,T:eT}=exScore(); const ex=WS.items.find(id=>wsCode(id)===EX_CODE);
+ if(ex){ if(!confirm("มีงานตัวอย่างอยู่แล้ว — รีเซ็ตเป็นค่าตัวอย่างเดิมหรือไม่?")){loadWS(ex);location.hash="#calc/score";return} saveWS(); store.set("ws_"+ex,{score:eS,trees:eT}); showWS(ex); }
+ else addWS(eS,eT);
+ location.hash="#calc/score"; setSub("calc","score")};
+renderExample();
 
 route();
 </script>
