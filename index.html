@@ -181,6 +181,13 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
   a[href]{color:inherit;text-decoration:none}
 }
 .print-only{display:none}
+.where{border:1px solid var(--line);border-left:6px solid var(--d2);border-radius:var(--r);background:var(--surface);padding:18px 20px;margin:16px 0}
+.where h2{color:var(--d2)}
+.where table td:first-child{white-space:nowrap;font-weight:600}
+kbd{font:inherit;font-size:.82em;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;background:var(--surface-2)}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-size:.9rem;max-width:min(92vw,560px);box-shadow:0 6px 24px rgba(0,0,0,.25);transition:all .25s;z-index:50}
+#toast kbd{background:transparent;color:inherit;border-color:currentColor;font-weight:600}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .limits{background:var(--orange-soft);border:2px solid var(--orange-line);border-left:8px solid var(--orange);border-radius:var(--r);padding:18px 20px;margin-top:8px}
 .limits h2{color:var(--orange)}
 .limits ol{margin:.3em 0 0;padding-left:1.3em}
@@ -319,6 +326,25 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
     <p class="muted" style="margin-top:10px">ศึกษาเพิ่มเติม: <a href="https://www.sdgmove.com/aboutsdgs" target="_blank" rel="noopener">SDGs 17 เป้าหมาย (SDG Move)</a> · <a href="#video">VDO Ecosystem services</a> · <a href="files/supp/S00_GreenRoof_EcosystemFunction.pdf" target="_blank" rel="noopener">บทความหลังคาเขียว (ภาคผนวกที่ 1)</a></p>
   </div>
 
+  <div class="where" id="where">
+    <h2>📁 ไฟล์ที่ดาวน์โหลด/บันทึก ไปอยู่ที่ไหนในเครื่อง?</h2>
+    <p>ทุกไฟล์ที่กดดาวน์โหลดจากเว็บนี้ (ไฟล์งาน <code>.json</code>, ไฟล์ <code>.csv</code>, Excel, Word) จะไปที่<b>โฟลเดอร์ดาวน์โหลด (Downloads)</b> ของเครื่องโดยอัตโนมัติ เว้นแต่ตั้งค่าเบราว์เซอร์ไว้ให้ถามที่เก็บทุกครั้ง</p>
+    <div class="tbl-wrap"><table>
+      <tr><th>อุปกรณ์</th><th>ไฟล์ดาวน์โหลดอยู่ที่</th><th>ดูรายการดาวน์โหลดล่าสุด</th></tr>
+      <tr><td>Windows</td><td>File Explorer → <b>This PC → Downloads</b> (<code>C:\Users\ชื่อผู้ใช้\Downloads</code>)</td><td>Chrome/Edge กด <kbd>Ctrl</kbd>+<kbd>J</kbd> · Firefox <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Y</kbd></td></tr>
+      <tr><td>macOS</td><td>Finder → <b>Downloads</b> (<code>/Users/ชื่อผู้ใช้/Downloads</code>)</td><td>Chrome <kbd>⌘</kbd>+<kbd>Shift</kbd>+<kbd>J</kbd> · Safari <kbd>⌥</kbd>+<kbd>⌘</kbd>+<kbd>L</kbd></td></tr>
+      <tr><td>Android</td><td>แอป <b>Files / ไฟล์ของฉัน → Downloads</b></td><td>Chrome เมนู ⋮ → ดาวน์โหลด</td></tr>
+      <tr><td>iPhone / iPad</td><td>แอป <b>ไฟล์ (Files) → บน iPhone หรือ iCloud Drive → Downloads</b></td><td>Safari แตะไอคอน ⬇ บนแถบที่อยู่</td></tr>
+    </table></div>
+    <ul class="clean" style="margin-top:10px">
+      <li><b>ไฟล์ PDF จากปุ่ม “พิมพ์/บันทึก PDF”</b> — หน้าต่างพิมพ์จะเปิดขึ้น ให้เลือกปลายทาง <b>“บันทึกเป็น PDF / Save as PDF”</b> แล้วกด <b>บันทึก</b> ระบบจะถามว่าจะเก็บที่ใด (มักเริ่มที่ Downloads หรือโฟลเดอร์ที่ใช้ล่าสุด) — ดูให้แน่ใจก่อนกดบันทึก ชื่อไฟล์ตั้งให้อัตโนมัติ เช่น <code>A1.1_ผลการคำนวณ.pdf</code> · บน iPhone ให้แตะ “แชร์” → “บันทึกไปยังไฟล์”</li>
+      <li><b>ปุ่ม “เปิดดู” ของเอกสาร PDF</b> จะเปิดในแท็บใหม่ ยังไม่ได้บันทึกลงเครื่อง ถ้าต้องการเก็บ ให้กดไอคอน ⬇ (ดาวน์โหลด) มุมขวาบนของหน้า PDF</li>
+      <li><b>ข้อมูลที่กรอกในเครื่องมือคำนวณ/แผน/Pretest ไม่ใช่ไฟล์</b> — เก็บอยู่ในเบราว์เซอร์ (ไม่มีให้เห็นในโฟลเดอร์ใด) ถ้าต้องการเป็นไฟล์ให้กด “บันทึกไฟล์งาน (.json)”</li>
+      <li><b>ไฟล์งาน .json</b> ใช้สำหรับ “เปิดไฟล์งาน” ในเว็บนี้เท่านั้น ไม่ต้องเปิดด้วยโปรแกรมอื่น และ<b>ไม่ใช่ไฟล์ที่ต้องส่งอาจารย์</b> (ส่ง PDF)</li>
+      <li>แนะนำให้สร้างโฟลเดอร์งาน เช่น <code>EcoLab_A1</code> แล้วย้ายไฟล์จาก Downloads ไปเก็บรวมกัน ป้องกันไฟล์ปนหรือหาไม่เจอ · ถ้าดาวน์โหลดชื่อซ้ำ ระบบจะเติม (1), (2) ต่อท้ายชื่อ — ใช้ไฟล์ที่ใหม่ที่สุด</li>
+    </ul>
+  </div>
+
   <div class="limits" id="limits">
     <h2>⚠ ข้อจำกัดในการใช้งานโปรแกรมนี้</h2>
     <ol>
@@ -404,6 +430,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
     <div class="row" id="pdfJumps"></div>
   </div>
 
+  <p class="muted" style="font-size:.85rem">ปุ่ม “เปิดดู” เปิด PDF ในแท็บใหม่ (กดไอคอน ⬇ เพื่อบันทึก) · ปุ่ม “ดาวน์โหลด” บันทึกลงโฟลเดอร์ Downloads — <a href="#" data-goto="where">ดูวิธีหาไฟล์ในเครื่อง</a></p>
   <h2>เอกสารแนบ: พรรณไม้ลดฝุ่น ดูดสารพิษ และหลังคาเขียว</h2>
   <div class="grid g2" id="docsSupp"></div>
 
@@ -442,7 +469,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
     <button class="btn sm pri" id="wsExport" type="button">⬇ บันทึกไฟล์งาน (.json)</button>
     <button class="btn sm" id="wsImport" type="button">⬆ เปิดไฟล์งาน</button>
     <input type="file" id="wsFile" accept=".json,application/json" hidden>
-    <div class="muted" style="flex-basis:100%;font-size:.8rem">เบราว์เซอร์นี้เก็บได้หลายกลุ่มย่อย สลับได้จากรายการ · ต้องการย้ายเครื่องหรือส่งต่อให้เพื่อน → กด “บันทึกไฟล์งาน” แล้วอีกเครื่องกด “เปิดไฟล์งาน”</div>
+    <div class="muted" style="flex-basis:100%;font-size:.8rem">เบราว์เซอร์นี้เก็บได้หลายกลุ่มย่อย สลับได้จากรายการ · ต้องการย้ายเครื่องหรือส่งต่อให้เพื่อน → กด “บันทึกไฟล์งาน” แล้วอีกเครื่องกด “เปิดไฟล์งาน” · <a href="#" data-goto="where">ไฟล์ไปอยู่ที่ไหน?</a></div>
   </div>
   <div class="tabs noprint" id="calcTabs">
     <button data-s="score" class="on" type="button">คะแนน 15 ตัวชี้วัด</button>
@@ -657,7 +684,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
   <div class="grid g2">
     <div class="card">
       <h3>สิ่งที่ต้องส่ง</h3>
-      <div class="doc" style="margin-bottom:10px"><div class="ic pdf">PDF</div><div><b>กลุ่มย่อย: ไฟล์ผลการคำนวณ (PDF)</b><small>จาก<a href="#calc">เครื่องมือคำนวณ</a> กดปุ่ม “พิมพ์/บันทึก PDF” (เลือกปลายทาง “บันทึกเป็น PDF”) · มีคะแนน 15 ตัวชี้วัด กราฟเรดาร์ ตารางคาร์บอนต้นไม้ และข้อมูลที่สมมุติ<br>ตั้งชื่อไฟล์: <code>A1.1_ผลการคำนวณ.pdf</code>, <code>A1.2_ผลการคำนวณ.pdf</code>, <code>B3.1_ผลการคำนวณ.pdf</code>, <code>B3.2_ผลการคำนวณ.pdf</code></small><div class="row"><a class="btn sm" href="#calc">ไปที่เครื่องมือคำนวณ</a></div></div></div>
+      <div class="doc" style="margin-bottom:10px"><div class="ic pdf">PDF</div><div><b>กลุ่มย่อย: ไฟล์ผลการคำนวณ (PDF)</b><small>จาก<a href="#calc">เครื่องมือคำนวณ</a> กดปุ่ม “พิมพ์/บันทึก PDF” (เลือกปลายทาง “บันทึกเป็น PDF”) · มีคะแนน 15 ตัวชี้วัด กราฟเรดาร์ ตารางคาร์บอนต้นไม้ และข้อมูลที่สมมุติ<br>ตั้งชื่อไฟล์: <code>A1.1_ผลการคำนวณ.pdf</code>, <code>A1.2_ผลการคำนวณ.pdf</code>, <code>B3.1_ผลการคำนวณ.pdf</code>, <code>B3.2_ผลการคำนวณ.pdf</code></small><div class="row"><a class="btn sm" href="#calc">ไปที่เครื่องมือคำนวณ</a><a class="btn sm ghost" href="#" data-goto="where">PDF ไปอยู่ที่ไหน?</a></div></div></div>
       <div class="doc"><div class="ic doc">DOC</div><div><b>กลุ่มใหญ่: รายงานสรุป 1 ฉบับ</b><small>โครงสร้างตาม checklist ด้านขวา · ตั้งชื่อไฟล์: <code>A1_รายงาน</code>, <code>B3_รายงาน</code></small></div></div>
       <div class="row" style="margin-top:14px"><a class="btn pri" id="driveLink" target="_blank" rel="noopener">ส่งงานใน Google Drive</a></div>
       <p class="muted" style="font-size:.85rem;margin-top:8px" id="dueText"></p>
@@ -768,6 +795,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
   </div>
 </section>
 
+<div id="toast" role="status" aria-live="polite"></div>
 <div class="footer">
   ปฏิบัติการนิเวศวิทยา 2303222 · รศ.ดร.พงษ์ชัย ดำรงโรจน์วัฒนา และ ผศ.ดร.นิพาดา เรือนแก้ว ดิษยทัติ · ภาควิชาชีววิทยา คณะวิทยาศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย<br>
   เกณฑ์การวิเคราะห์ฯ พัฒนาภายใต้โครงการเสริมสร้างพื้นที่สีเขียวในเมืองเพื่อรองรับความเป็นกลางทางคาร์บอนของประเทศไทย (สนับสนุนโดย GIZ) · เครื่องมือคำนวณในเว็บนี้ใช้เกณฑ์และสมการเดียวกับโปรแกรมวิเคราะห์ศักยภาพพื้นที่สีเขียว (Excel)
@@ -954,7 +982,9 @@ const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&g
 const fmt=(n,d=2)=>Number.isFinite(n)?n.toLocaleString("th-TH",{maximumFractionDigits:d,minimumFractionDigits:0}):"–";
 const num=v=>{if(v===""||v==null)return NaN;const n=parseFloat(String(v).replace(/,/g,""));return Number.isFinite(n)?n:NaN};
 const pdfUrl=p=>`${CONFIG.manualPdf}#page=${p+CONFIG.manualOffset}`;
-function download(name,text,type="text/csv;charset=utf-8"){const b=new Blob([(/csv/.test(type)?"\ufeff":"")+text],{type});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+let toastT;function toast(msg){const t=$("#toast");t.innerHTML=msg;t.classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("on"),6000)}
+const dlKey=()=>/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent)?"⌘+Shift+J":"Ctrl+J";
+function download(name,text,type="text/csv;charset=utf-8"){setTimeout(()=>toast(`⬇ บันทึก <b>${esc(name)}</b> ไว้ในโฟลเดอร์ <b>Downloads</b> แล้ว · ดูรายการดาวน์โหลดกด <kbd>${dlKey()}</kbd>`),300);const b=new Blob([(/csv/.test(type)?"\ufeff":"")+text],{type});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
 const csvCell=v=>{v=String(v??"");return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
 const raiTxt=m2=>{if(!Number.isFinite(m2)||m2<=0)return"";const r=Math.floor(m2/1600),rem=m2-r*1600,n=Math.floor(rem/400),w=(rem-n*400)/4;return `${fmt(m2/1600,3)} ไร่ (${r}-${n}-${fmt(w,1)} ไร่-งาน-ตร.วา)`};
 
@@ -969,6 +999,7 @@ function route(){
 }
 window.addEventListener("hashchange",route);
 $("#menuBtn").onclick=()=>$("#side").classList.toggle("open");
+document.addEventListener("click",e=>{const g=e.target.closest("[data-goto]");if(g){e.preventDefault();location.hash="#home";setTimeout(()=>document.getElementById(g.dataset.goto).scrollIntoView({behavior:"smooth"}),80);return}});
 document.addEventListener("click",e=>{const a=e.target.closest("[data-pdf]");if(a){e.preventDefault();window.open(pdfUrl(+a.dataset.pdf),"_blank","noopener")}});
 function setSub(group,s){const tabs=$("#"+group+"Tabs");if(!tabs)return;tabs.querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.s===s));tabs.parentElement.querySelectorAll(":scope > .sub").forEach(d=>d.classList.toggle("on",d.id==="s-"+s))}
 ["calc","plant"].forEach(g=>$("#"+g+"Tabs").addEventListener("click",e=>{const b=e.target.closest("button");if(b)setSub(g,b.dataset.s)}));
@@ -1123,7 +1154,7 @@ $("#btnPrint").onclick=()=>{
   <div style="font-size:11px;color:#555">2303222 Ecology Laboratory · ปฏิบัติการการประเมินศักยภาพระบบนิเวศและการสร้างแผนการจัดการ</div>`;
  $$("#treeTbl tbody tr").forEach((tr,k)=>{const r=T.rows[k]||{};tr.classList.toggle("empty",!(r.name||r.gbh||r.h||r.cl))});
  const old=document.title; document.title=`${code}_ผลการคำนวณ`; document.body.classList.add("printing-calc");
- const done=()=>{document.title=old;document.body.classList.remove("printing-calc");window.removeEventListener("afterprint",done)};
+ const done=()=>{const nm=document.title; if(nm!==old) toast(`ถ้าเลือก “บันทึกเป็น PDF” ไฟล์ <b>${esc(nm)}.pdf</b> จะอยู่ในโฟลเดอร์ที่เลือกตอนกดบันทึก (มักเป็น <b>Downloads</b>)`);document.title=old;document.body.classList.remove("printing-calc");window.removeEventListener("afterprint",done)};
  window.addEventListener("afterprint",done); window.print()};
 $("#btnCsv").onclick=()=>{const {res,vals}=computeScores(); const rows=[["ตัวชี้วัด","ชื่อ","ค่าที่วัดได้","คะแนน (เต็ม 5)"]];
  IND.forEach(i=>rows.push([i.id,i.name,Number.isFinite(vals[i.id])?vals[i.id].toFixed(2):"",res[i.id]??""]));
@@ -1361,7 +1392,7 @@ $("#ptPrint").onclick=()=>{if(!PT.done){$("#ptMsg").textContent="กรุณา
  const sc=PRETEST.filter((x,k)=>PT.ans[k]===x.a).length;
  $("#ptPrintHead").innerHTML=`<b>Pretest: การประเมินบริการของระบบนิเวศ</b> · 2303222 Ecology Laboratory<br>${esc(PT.name)} · รหัส ${esc(PT.id)} · กลุ่ม ${esc(PT.group||"-")} · คะแนน ${sc}/${PRETEST.length} · ส่งเมื่อ ${new Date(PT.at||Date.now()).toLocaleString("th-TH")}`;
  const old=document.title; document.title=`${(PT.id||"").trim()}_Pretest`; document.body.classList.add("printing-pretest");
- const done=()=>{document.title=old;document.body.classList.remove("printing-pretest");window.removeEventListener("afterprint",done)};
+ const done=()=>{const nm=document.title; if(nm!==old) toast(`ถ้าเลือก “บันทึกเป็น PDF” ไฟล์ <b>${esc(nm)}.pdf</b> จะอยู่ในโฟลเดอร์ที่เลือกตอนกดบันทึก (มักเป็น <b>Downloads</b>)`);document.title=old;document.body.classList.remove("printing-pretest");window.removeEventListener("afterprint",done)};
  window.addEventListener("afterprint",done); window.print()};
 renderPT();
 
