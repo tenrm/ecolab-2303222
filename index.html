@@ -170,11 +170,28 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
   body.printing-calc #s-tree{display:block!important;break-before:page}
   body.printing-calc #s-tree .callout{display:none}
   body.printing-calc #s-area{display:none!important}
+  body.printing-pretest #p-video>*:not(#pretestCard){display:none!important}
+  body.printing-pretest #pretestCard .noprint{display:none!important}
+  .wsbar{display:none!important}
   #treeTbl button,#treeTbl tr.empty{display:none}
   input,select,textarea{border:1px solid #bbb!important}
   a[href]{color:inherit;text-decoration:none}
 }
 .print-only{display:none}
+.wsbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--brand-soft);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:14px}
+.wsbar select{width:auto;min-width:220px;font-weight:600}
+.wsbar .sep{flex:1}
+.q-item{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;background:var(--surface)}
+.q-item .qn{font-weight:700;color:var(--brand);margin-right:6px}
+.tf{display:flex;gap:8px;margin-top:8px}
+.tf label{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:99px;padding:5px 16px;cursor:pointer;font-weight:500;user-select:none}
+.tf input{accent-color:var(--brand)}
+.tf label:has(input:checked){background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.q-item.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 8%,var(--surface))}
+.q-item.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 7%,var(--surface))}
+.q-exp{margin-top:8px;font-size:.9rem;display:none}
+.done .q-exp{display:block}
+.done .tf label{cursor:default}
 </style>
 </head>
 <body>
@@ -185,7 +202,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
     <div><b>EcoLab 2303222</b><span>Green Space Assessment</span></div>
   </div>
   <a href="#home" data-p="home"><span class="n">⌂</span>ภาพรวมปฏิบัติการ</a>
-  <a href="#video" data-p="video"><span class="n">▶</span>VDO Brief</a>
+  <a href="#video" data-p="video"><span class="n">▶</span>VDO Brief &amp; Pretest</a>
   <a href="#docs" data-p="docs"><span class="n">1</span>คู่มือ &amp; เอกสาร</a>
   <a href="#criteria" data-p="criteria"><span class="n">2</span>เกณฑ์ 15 ตัวชี้วัด</a>
   <a href="#calc" data-p="calc"><span class="n">3</span>เครื่องมือคำนวณ</a>
@@ -292,8 +309,31 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
 
 <!-- ================= VIDEO ================= -->
 <section class="page" id="p-video">
-  <h1>VDO Brief</h1>
-  <p class="muted">ชมคลิปแนะนำปฏิบัติการก่อนลงพื้นที่ (สไลด์ประกอบดาวน์โหลดได้ด้านล่าง)</p>
+  <h1>VDO Brief &amp; Pretest</h1>
+  <p class="muted">① ทำ Pretest ก่อน → ② ชมคลิปแนะนำปฏิบัติการ → ③ ทบทวนคำเฉลยและคำอธิบาย</p>
+
+  <div class="card" id="pretestCard">
+    <div class="print-only" id="ptPrintHead" style="border-bottom:2px solid #1f7a4d;padding-bottom:6px;margin-bottom:10px"></div>
+    <div class="row" style="justify-content:space-between;align-items:flex-start">
+      <div><div class="kicker">ขั้นที่ 1 · ทำก่อนชม VDO</div><h2 style="margin:.1em 0 .2em">Pretest: การประเมินบริการของระบบนิเวศ</h2>
+      <p class="muted" style="margin:0">ข้อความต่อไปนี้ถูกหรือผิด (6 ข้อ) · ช่วยกันคิดในกลุ่มได้ · กด “ส่งคำตอบ” แล้วจะเห็นเฉลยและคำอธิบายทันที</p></div>
+      <div class="stat" style="min-width:150px;text-align:center"><div class="l">คะแนน</div><div class="v" id="ptScore">–</div><div class="l" id="ptScoreTxt">ยังไม่ส่งคำตอบ</div></div>
+    </div>
+    <div class="grid g3" style="margin:14px 0 6px">
+      <div class="field"><label for="ptName">ชื่อ–นามสกุล</label><input type="text" id="ptName"></div>
+      <div class="field"><label for="ptId">รหัสนิสิต</label><input type="text" id="ptId" inputmode="numeric"></div>
+      <div class="field"><label for="ptGroup">กลุ่ม</label><input type="text" id="ptGroup" placeholder="เช่น A1"></div>
+    </div>
+    <div id="ptList"></div>
+    <div class="row noprint" style="margin-top:6px">
+      <button class="btn pri" id="ptSubmit" type="button">ส่งคำตอบ</button>
+      <button class="btn" id="ptRetry" type="button">ทำใหม่</button>
+      <button class="btn" id="ptPrint" type="button">บันทึกผล PDF</button>
+      <span id="ptMsg" class="warn" style="font-size:.88rem"></span>
+    </div>
+  </div>
+
+  <div class="kicker" style="margin:18px 0 8px">ขั้นที่ 2 · ชมคลิป</div>
   <div class="grid g2">
     <div class="card">
       <h3>Brief ปฏิบัติการ: การประเมินศักยภาพระบบนิเวศและการสร้างแผนการจัดการ</h3>
@@ -365,6 +405,17 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
   <h1>เครื่องมือคำนวณ</h1>
   <p class="muted">กรอกข้อมูลให้ครบทั้งแท็บ “คะแนน 15 ตัวชี้วัด” และ “คาร์บอนต้นไม้” แล้วกด <b>พิมพ์/บันทึก PDF</b> → ส่งไฟล์ชื่อ <code>รหัสกลุ่มย่อย_ผลการคำนวณ.pdf</code> · ข้อมูลที่กรอกจำไว้ในเบราว์เซอร์เครื่องนี้เท่านั้น (ใช้เครื่อง/เบราว์เซอร์เดิมเมื่อกลับมาแก้ไข)</p>
   <div class="print-only" id="printHead" style="border-bottom:2px solid #1f7a4d;padding-bottom:8px;margin-bottom:12px"></div>
+  <div class="wsbar noprint" id="wsBar">
+    <label for="wsSel" style="font-weight:600">งานของกลุ่มย่อย:</label>
+    <select id="wsSel" aria-label="เลือกงานของกลุ่มย่อย"></select>
+    <button class="btn sm" id="wsNew" type="button">+ เพิ่มกลุ่มย่อย</button>
+    <button class="btn sm ghost" id="wsDel" type="button">ลบงานนี้</button>
+    <span class="sep"></span>
+    <button class="btn sm pri" id="wsExport" type="button">⬇ บันทึกไฟล์งาน (.json)</button>
+    <button class="btn sm" id="wsImport" type="button">⬆ เปิดไฟล์งาน</button>
+    <input type="file" id="wsFile" accept=".json,application/json" hidden>
+    <div class="muted" style="flex-basis:100%;font-size:.8rem">เบราว์เซอร์นี้เก็บได้หลายกลุ่มย่อย สลับได้จากรายการ · ต้องการย้ายเครื่องหรือส่งต่อให้เพื่อน → กด “บันทึกไฟล์งาน” แล้วอีกเครื่องกด “เปิดไฟล์งาน”</div>
+  </div>
   <div class="tabs noprint" id="calcTabs">
     <button data-s="score" class="on" type="button">คะแนน 15 ตัวชี้วัด</button>
     <button data-s="tree" type="button">คาร์บอนต้นไม้</button>
@@ -547,7 +598,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
 <!-- ================= PLAN ================= -->
 <section class="page" id="p-plan">
   <h1>แผนการปรับปรุงพื้นที่สีเขียว</h1>
-  <p class="muted">ตามตารางที่ ผ.1 ในคู่มือปฏิบัติการ · ระยะเวลา 2 ปี (24 เดือน) · พื้นที่ละ 6 กิจกรรม (รวม 12) · เรียงความสำคัญจากด้านที่ได้คะแนนน้อยที่สุด · ตัวชี้วัดความสำเร็จต้องวัด/ประเมินได้ (เชิงปริมาณ)</p>
+  <p class="muted">ตามตารางที่ ผ.1 ในคู่มือปฏิบัติการ · ข้อมูลแผนจำไว้ในเบราว์เซอร์เครื่องนี้ ส่งต่อให้เพื่อนด้วยปุ่ม “บันทึกไฟล์แผน / เปิดไฟล์แผน” ด้านล่าง · · ระยะเวลา 2 ปี (24 เดือน) · พื้นที่ละ 6 กิจกรรม (รวม 12) · เรียงความสำคัญจากด้านที่ได้คะแนนน้อยที่สุด · ตัวชี้วัดความสำเร็จต้องวัด/ประเมินได้ (เชิงปริมาณ)</p>
   <div class="card noprint">
     <div class="grid g3">
       <div class="field"><label for="planStart">เริ่มดำเนินการ</label><input type="text" id="planStart" placeholder="มกราคม 2569"></div>
@@ -565,6 +616,9 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
     <button class="btn" id="planCopy" type="button">คัดลอกเป็นตาราง (วางใน Word)</button>
     <button class="btn" id="planPrint" type="button">พิมพ์/บันทึก PDF</button>
     <button class="btn ghost" id="planEx" type="button">ใส่ตัวอย่าง</button>
+    <button class="btn" id="planSave" type="button">⬇ บันทึกไฟล์แผน (.json)</button>
+    <button class="btn" id="planOpen" type="button">⬆ เปิดไฟล์แผน</button>
+    <input type="file" id="planFile" accept=".json,application/json" hidden>
     <span id="planMsg" class="okc" style="font-size:.88rem"></span>
   </div>
 </section>
@@ -714,7 +768,7 @@ const DOCS_MAIN = [
  {t:"โปรแกรมวิเคราะห์ศักยภาพพื้นที่สีเขียว (Excel) + ชีทคาดการณ์คาร์บอน",d:"เอกสารประกอบ/ศึกษาเพิ่มเติม (ไม่ต้องส่ง — ส่งผลการคำนวณจากเว็บเป็น PDF แทน) · มีแผ่นงาน “Printบันทึกข้อมูลพืชภาคสนาม” สำหรับพิมพ์ไปจดข้อมูลต้นไม้ (15 MB)",f:"files/tools/GreenSpace_Assessment_Tool.xlsx",ic:"xls",dl:true},
  {t:"สไลด์ Brief ปฏิบัติการ",d:"ประกอบ VDO brief · 15 หน้า",f:"files/manual/Brief_Slides_2568.pdf",ic:"pdf"},
  {t:"VDO Brief (YouTube)",d:"ชมก่อนเริ่มปฏิบัติการ",f:"#video",ic:"vid",internal:true},
- {t:"Pretest: การประเมินบริการของระบบนิเวศ",d:"แบบทดสอบก่อนเรียน (Word)",f:"files/tools/Pretest_EcosystemServices.docx",ic:"doc",dl:true}
+ {t:"Pretest: การประเมินบริการของระบบนิเวศ (ทำออนไลน์)",d:"แบบทดสอบก่อนเรียน 6 ข้อ อยู่ในหน้า VDO Brief & Pretest",f:"#video",ic:"vid",internal:true}
 ];
 const DOCS_SUPP = [
  {t:"หลังคาเขียว: ระบบนิเวศในสังคมเมือง (ภาคผนวกที่ 1)",d:"บทความวิชาการ พงษ์ชัย ดำรงโรจน์วัฒนา · ecosystem function ของหลังคาเขียว",f:"files/supp/S00_GreenRoof_EcosystemFunction.pdf",ic:"pdf"},
@@ -796,7 +850,7 @@ const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&g
 const fmt=(n,d=2)=>Number.isFinite(n)?n.toLocaleString("th-TH",{maximumFractionDigits:d,minimumFractionDigits:0}):"–";
 const num=v=>{if(v===""||v==null)return NaN;const n=parseFloat(String(v).replace(/,/g,""));return Number.isFinite(n)?n:NaN};
 const pdfUrl=p=>`${CONFIG.manualPdf}#page=${p+CONFIG.manualOffset}`;
-function download(name,text,type="text/csv;charset=utf-8"){const b=new Blob(["﻿"+text],{type});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+function download(name,text,type="text/csv;charset=utf-8"){const b=new Blob([(/csv/.test(type)?"\ufeff":"")+text],{type});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
 const csvCell=v=>{v=String(v??"");return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v};
 const raiTxt=m2=>{if(!Number.isFinite(m2)||m2<=0)return"";const r=Math.floor(m2/1600),rem=m2-r*1600,n=Math.floor(rem/400),w=(rem-n*400)/4;return `${fmt(m2/1600,3)} ไร่ (${r}-${n}-${fmt(w,1)} ไร่-งาน-ตร.วา)`};
 
@@ -850,7 +904,16 @@ $("#wTbl").innerHTML=`<tr><th>ตัวชี้วัด</th>${TYPES.map(t=>`<t
  `<tr><td><b>รวม</b></td>${TYPES.map((_,k)=>`<td style="text-align:center"><b>${IND.reduce((s,i)=>s+WEIGHTS[i.id][k],0)}</b></td>`).join("")}</tr>`;
 
 /* ======================= SCORE CALCULATOR ======================= */
-let S=store.get("score",{});
+/* ---- workspaces (หลายกลุ่มย่อยในเบราว์เซอร์เดียว) ---- */
+const newId=()=>"w"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const defaultTrees=()=>({rows:Array.from({length:5},()=>({})),plot:"",year:"",base:"",baseYear:"",excel:false});
+let WS=store.get("wsIndex",null);
+if(!WS||!WS.items||!WS.items.length){const id=newId(); store.set("ws_"+id,{score:store.get("score",{}),trees:store.get("trees",null)||defaultTrees()}); WS={cur:id,items:[id]}; store.set("wsIndex",WS);}
+if(!WS.items.includes(WS.cur)) WS.cur=WS.items[0];
+const wsData=id=>store.get("ws_"+id,{score:{},trees:defaultTrees()});
+let S=wsData(WS.cur).score||{};
+let T=wsData(WS.cur).trees||defaultTrees();
+const saveWS=()=>{const {_n,_plot,_ann,...t}=T; store.set("ws_"+WS.cur,{score:S,trees:t}); store.set("wsIndex",WS)};
 $("#siteType").innerHTML=TYPES.map(t=>`<option>${t}</option>`).join("");
 const AREA_IDS=["aTotal","aOut","aRoof","aWater","aCanopy","aHard"];
 function buildIndCard(){
@@ -868,11 +931,14 @@ function buildIndCard(){
  $("#indCard").innerHTML=h;
 }
 buildIndCard();
-function bindInputs(){
+function fillScore(){
  ["siteName","groupCode","evalDate","members","notes"].forEach(k=>$("#"+k).value=S[k]||""); $("#siteType").value=S.siteType||TYPES[0];
  AREA_IDS.forEach(id=>$("#"+id).value=S[id]??"");
  $$("#indCard [data-k]").forEach(el=>{const k=el.dataset.k; if(el.type==="checkbox") el.checked=!!S[k]; else el.value=S[k]??""});
- const save=e=>{const el=e.target; if(!el.matches("input,select,textarea"))return; const k=el.dataset.k||el.id; S[k]=el.type==="checkbox"?el.checked:el.value; store.set("score",S); renderScore()};
+}
+function bindInputs(){
+ fillScore();
+ const save=e=>{const el=e.target; if(!el.matches("input,select,textarea"))return; const k=el.dataset.k||el.id; S[k]=el.type==="checkbox"?el.checked:el.value; saveWS(); renderScore(); if(k==="groupCode"||k==="siteName") renderWsBar()};
  $("#s-score").addEventListener("input",save); $("#s-score").addEventListener("change",save);
 }
 const thScore=(v,th)=>v>=th[0]?5:v>=th[1]?3:v>=th[2]?1:0;
@@ -939,7 +1005,7 @@ function drawRadar(res){
  svg.innerHTML=g;
 }
 bindInputs(); renderScore();
-$("#btnReset").onclick=()=>{if(confirm("ล้างข้อมูลการประเมินทั้งหมด?")){S={};store.set("score",S);bindInputs();renderScore()}};
+$("#btnReset").onclick=()=>{if(confirm("ล้างข้อมูลการประเมินทั้งหมด?")){S={groupCode:S.groupCode||""};saveWS();fillScore();renderScore()}};
 $("#btnPrint").onclick=()=>{
  if(!(S.groupCode||"").trim()||!(S.siteName||"").trim()){alert("กรุณากรอก “รหัสกลุ่มย่อย” และ “ชื่อพื้นที่สีเขียว” ก่อนบันทึก PDF");$("#groupCode").focus();return}
  const code=S.groupCode.trim().replace(/\s+/g,""), {res}=computeScores(), filled=IND.filter(i=>res[i.id]!=null).length;
@@ -972,8 +1038,7 @@ D = เส้นผ่านศูนย์กลางที่ระดับ�
 <label class="cb" style="padding-top:6px"><input type="checkbox" id="eqExcel"> คำนวณมวลใบแบบเดียวกับไฟล์ Excel</label>`;
 $("#eqBox").innerHTML=EQ;
 $("#eqToggle").onclick=e=>{e.preventDefault();const b=$("#eqBox");b.style.display=b.style.display==="none"?"block":"none"};
-let T=store.get("trees",{rows:[],plot:"",year:"",base:"",baseYear:"",excel:false});
-if(!T.rows.length) T.rows=Array.from({length:5},()=>({}));
+if(!T.rows||!T.rows.length) T.rows=Array.from({length:5},()=>({}));
 function treeCalc(r){
  const gbh=num(r.gbh); if(!(gbh>0)) return {err:""};
  const D=gbh/Math.PI; if(D<4.5) return {D,err:"DBH < 4.5 ซม. (ไม่ใช่ไม้ต้น)"};
@@ -1009,30 +1074,31 @@ function treeSummary(){
  T._n=n; T._plot=plot; T._ann=ann;
  return {n,sum,per,den,ann};
 }
+function fillTrees(){ $("#tPlot").value=T.plot||""; $("#tYear").value=T.year||""; $("#tBase").value=T.base||""; $("#tBaseYear").value=T.baseYear||""; $("#eqExcel").checked=!!T.excel; }
 function bindTrees(){
- $("#tPlot").value=T.plot; $("#tYear").value=T.year; $("#tBase").value=T.base; $("#tBaseYear").value=T.baseYear;
- const ex=$("#eqExcel"); ex.checked=!!T.excel; ex.onchange=()=>{T.excel=ex.checked;store.set("trees",T);renderTrees()};
- [["tPlot","plot"],["tYear","year"],["tBase","base"],["tBaseYear","baseYear"]].forEach(([id,k])=>$("#"+id).addEventListener("input",e=>{T[k]=e.target.value;store.set("trees",T);treeSummary()}));
- $("#treeTbl").addEventListener("input",e=>{const el=e.target,tr=el.closest("tr");if(!tr||!el.dataset.f)return;const r=T.rows[+tr.dataset.i];r[el.dataset.f]=el.value;store.set("trees",T);
+ fillTrees();
+ const ex=$("#eqExcel"); ex.onchange=()=>{T.excel=ex.checked;saveWS();renderTrees()};
+ [["tPlot","plot"],["tYear","year"],["tBase","base"],["tBaseYear","baseYear"]].forEach(([id,k])=>$("#"+id).addEventListener("input",e=>{T[k]=e.target.value;saveWS();treeSummary()}));
+ $("#treeTbl").addEventListener("input",e=>{const el=e.target,tr=el.closest("tr");if(!tr||!el.dataset.f)return;const r=T.rows[+tr.dataset.i];r[el.dataset.f]=el.value;saveWS();
   const c=treeCalc(r);tr.querySelector('[data-o="D"]').textContent=c.D?fmt(c.D,1):"";tr.querySelector('[data-o="H"]').textContent=c.H?fmt(c.H,1):"";
   tr.querySelector('[data-o="tot"]').innerHTML=c.tot?fmt(c.tot,1):(c.err?`<span class="warn" style="font-size:.78rem">${c.err}</span>`:"");tr.querySelector('[data-o="co2"]').textContent=c.co2?fmt(c.co2,4):"";treeSummary()});
- $("#treeTbl").addEventListener("click",e=>{const b=e.target.closest("[data-del]");if(!b)return;T.rows.splice(+b.dataset.del,1);if(!T.rows.length)T.rows.push({});store.set("trees",T);renderTrees()});
- $("#tAdd").onclick=()=>{T.rows.push({});store.set("trees",T);renderTrees();const ins=$$("#treeTbl tbody tr:last-child input");ins[0]&&ins[0].focus()};
- $("#tAdd10").onclick=()=>{for(let i=0;i<10;i++)T.rows.push({});store.set("trees",T);renderTrees()};
- $("#tClear").onclick=()=>{if(confirm("ล้างข้อมูลต้นไม้ทั้งหมด?")){T.rows=Array.from({length:5},()=>({}));store.set("trees",T);renderTrees()}};
+ $("#treeTbl").addEventListener("click",e=>{const b=e.target.closest("[data-del]");if(!b)return;T.rows.splice(+b.dataset.del,1);if(!T.rows.length)T.rows.push({});saveWS();renderTrees()});
+ $("#tAdd").onclick=()=>{T.rows.push({});saveWS();renderTrees();const ins=$$("#treeTbl tbody tr:last-child input");ins[0]&&ins[0].focus()};
+ $("#tAdd10").onclick=()=>{for(let i=0;i<10;i++)T.rows.push({});saveWS();renderTrees()};
+ $("#tClear").onclick=()=>{if(confirm("ล้างข้อมูลต้นไม้ทั้งหมด?")){T.rows=Array.from({length:5},()=>({}));saveWS();renderTrees()}};
  $("#tPaste").onclick=()=>{$("#pasteBox").style.display="block";$("#pasteTxt").focus()};
  $("#pasteCancel").onclick=()=>{$("#pasteBox").style.display="none"};
  $("#pasteGo").onclick=()=>{const lines=$("#pasteTxt").value.split(/\r?\n/).map(l=>l.split(/\t|,|;/)).filter(c=>c.join("").trim());let added=0;
   T.rows=T.rows.filter(r=>r.name||r.gbh||r.h||r.cl);
   lines.forEach(c=>{let name="",gbh,h; if(c.length>=3){[name,gbh,h]=c}else if(c.length===2){ if(isNaN(num(c[0]))){[name,gbh]=c}else{[gbh,h]=c}} else {gbh=c[0]}
    if(Number.isFinite(num(gbh))){T.rows.push({name:(name||"").trim(),gbh:String(num(gbh)),h:Number.isFinite(num(h))?String(num(h)):""});added++}});
-  if(!T.rows.length)T.rows.push({}); store.set("trees",T); renderTrees(); $("#pasteBox").style.display="none"; $("#pasteTxt").value=""; alert(`นำเข้า ${added} ต้น`)};
+  if(!T.rows.length)T.rows.push({}); saveWS(); renderTrees(); $("#pasteBox").style.display="none"; $("#pasteTxt").value=""; alert(`นำเข้า ${added} ต้น`)};
  $("#tCsv").onclick=()=>{const rows=[["ลำดับ","ชื่อต้นไม้","GBH (ซม.)","DBH (ซม.)","ความสูง (ม.)","มวลชีวภาพรวม (กก.)","tCO2e","หมายเหตุ"]];
   T.rows.forEach((r,k)=>{if(!(r.name||r.gbh))return;const c=treeCalc(r);rows.push([k+1,r.name||"",r.gbh||"",c.D?c.D.toFixed(2):"",c.H?c.H.toFixed(2):"",c.tot?c.tot.toFixed(2):"",c.co2?c.co2.toFixed(5):"",c.err||""])});
   const s=treeSummary(); rows.push([],["รวม tCO2e","","","","","",s.sum.toFixed(4)],["tCO2e/ไร่","","","","","",Number.isFinite(s.per)?s.per.toFixed(4):""],["tCO2e/ไร่/ปี","","","","","",Number.isFinite(s.ann)?s.ann.toFixed(4):""]);
   download("Tree_Carbon.csv",rows.map(r=>r.map(csvCell).join(",")).join("\n"))};
  $("#tToScore").onclick=()=>{const s=treeSummary(); if(!s.n){alert("ยังไม่มีข้อมูลต้นไม้ที่คำนวณได้");return}
-  S.n12=String(s.n); if(T._plot>0) S.p12=String(T._plot); if(Number.isFinite(s.ann)) S["v2.1"]=s.ann.toFixed(3); store.set("score",S); bindInputs(); renderScore(); location.hash="#calc/score"; setSub("calc","score")};
+  S.n12=String(s.n); if(T._plot>0) S.p12=String(T._plot); if(Number.isFinite(s.ann)) S["v2.1"]=s.ann.toFixed(3); saveWS(); fillScore(); renderScore(); location.hash="#calc/score"; setSub("calc","score")};
 }
 bindTrees(); renderTrees();
 
@@ -1111,6 +1177,89 @@ let CK=store.get("check",[]);
 function renderCk(){$("#checklist").innerHTML=CHECK.map((t,k)=>`<label class="cb"><input type="checkbox" data-ck="${k}" ${CK[k]?"checked":""}> ${esc(t)}</label>`).join("");$("#ckCount").textContent=`${CK.filter(Boolean).length}/${CHECK.length}`}
 $("#checklist").addEventListener("change",e=>{const k=e.target.dataset.ck;if(k===undefined)return;CK[+k]=e.target.checked;store.set("check",CK);$("#ckCount").textContent=`${CK.filter(Boolean).length}/${CHECK.length}`});
 renderCk();
+
+/* ======================= WORKSPACE UI ======================= */
+const wsCode=id=>{const d=id===WS.cur?{score:S}:wsData(id);return ((d.score||{}).groupCode||"").trim()};
+function wsLabel(id){const d=id===WS.cur?{score:S}:wsData(id);const sc=d.score||{};return (sc.groupCode||"(ยังไม่ตั้งรหัส)")+(sc.siteName?" · "+sc.siteName:"")}
+function renderWsBar(){$("#wsSel").innerHTML=WS.items.map(id=>`<option value="${id}" ${id===WS.cur?"selected":""}>${esc(wsLabel(id))}</option>`).join("")}
+function showWS(id){WS.cur=id; const d=wsData(id); S=d.score||{}; T=d.trees||defaultTrees(); if(!T.rows||!T.rows.length)T.rows=Array.from({length:5},()=>({}));
+ store.set("wsIndex",WS); fillScore(); renderScore(); fillTrees(); renderTrees(); renderWsBar()}
+function loadWS(id){saveWS(); showWS(id)}
+const wsEmpty=()=>!Object.values(S).some(v=>v!==""&&v!==false&&v!=null)&&!(T.rows||[]).some(r=>r.name||r.gbh||r.h||r.cl)&&!T.plot;
+function addWS(score,trees){saveWS(); let id; if(wsEmpty()){id=WS.cur} else {id=newId(); WS.items.push(id);} store.set("ws_"+id,{score:score||{},trees:trees||defaultTrees()}); showWS(id); return id}
+$("#wsSel").onchange=e=>loadWS(e.target.value);
+$("#wsNew").onclick=()=>{const code=(prompt("รหัสกลุ่มย่อยใหม่ (เช่น A1.2)")||"").trim(); if(!code)return;
+ const dup=WS.items.find(id=>wsCode(id)===code); if(dup){alert("มีงานรหัสนี้อยู่แล้ว — สลับไปที่งานนั้น");loadWS(dup);return}
+ addWS({groupCode:code},defaultTrees())};
+$("#wsDel").onclick=()=>{if(!confirm(`ลบงาน “${wsLabel(WS.cur)}” ออกจากเบราว์เซอร์นี้?\n(ควรบันทึกไฟล์งานไว้ก่อน)`))return;
+ const old=WS.cur; try{localStorage.removeItem("ecolab_ws_"+old)}catch(e){} WS.items=WS.items.filter(x=>x!==old);
+ if(!WS.items.length){const id=newId();WS.items.push(id);store.set("ws_"+id,{score:{},trees:defaultTrees()})}
+ showWS(WS.items[0])};
+const stamp=()=>{const d=new Date(),z=n=>String(n).padStart(2,"0");return `${d.getFullYear()}${z(d.getMonth()+1)}${z(d.getDate())}_${z(d.getHours())}${z(d.getMinutes())}`};
+$("#wsExport").onclick=()=>{saveWS(); const code=(S.groupCode||"กลุ่มย่อย").trim().replace(/\s+/g,"");
+ const {_n,_plot,_ann,...t}=T;
+ download(`${code}_ไฟล์งาน_${stamp()}.json`,JSON.stringify({app:"ecolab-2303222",kind:"subgroup",version:1,savedAt:new Date().toISOString(),score:S,trees:t},null,1),"application/json")};
+$("#wsImport").onclick=()=>$("#wsFile").click();
+function readJson(file,cb){const r=new FileReader();r.onload=()=>{let o;try{o=JSON.parse(String(r.result).replace(/^﻿/,""));if(!o||o.app!=="ecolab-2303222")throw 0}catch(e){alert("ไฟล์ไม่ถูกต้อง — ต้องเป็นไฟล์ .json ที่บันทึกจากเว็บนี้");return}cb(o)};r.readAsText(file)}
+$("#wsFile").onchange=e=>{const f=e.target.files[0]; e.target.value=""; if(!f)return; readJson(f,o=>{
+ if(o.kind==="plan"){alert("ไฟล์นี้เป็นไฟล์แผนการจัดการ — กรุณาเปิดที่หน้า “แผนการจัดการ”");return}
+ if(o.kind!=="subgroup"||!o.score){alert("ไม่พบข้อมูลกลุ่มย่อยในไฟล์");return}
+ const code=(o.score.groupCode||"").trim(); const ex=code?WS.items.find(id=>wsCode(id)===code):null;
+ if(ex&&confirm(`มีงาน “${code}” อยู่แล้วในเบราว์เซอร์นี้\nOK = แทนที่ด้วยข้อมูลจากไฟล์ · Cancel = เพิ่มเป็นงานใหม่`)){
+   saveWS(); store.set("ws_"+ex,{score:o.score,trees:o.trees||defaultTrees()}); showWS(ex);
+ } else addWS(o.score,o.trees);
+ alert(`เปิดไฟล์งาน “${code||"ไม่มีรหัส"}” แล้ว`)})};
+renderWsBar();
+
+/* plan json */
+$("#planSave").onclick=()=>{savePlan(); download(`แผนการจัดการ_${stamp()}.json`,JSON.stringify({app:"ecolab-2303222",kind:"plan",version:1,savedAt:new Date().toISOString(),plan:P,check:CK},null,1),"application/json")};
+$("#planOpen").onclick=()=>$("#planFile").click();
+$("#planFile").onchange=e=>{const f=e.target.files[0]; e.target.value=""; if(!f)return; readJson(f,o=>{
+ if(o.kind!=="plan"||!o.plan){alert("ไฟล์นี้ไม่ใช่ไฟล์แผนการจัดการ (ไฟล์งานกลุ่มย่อยให้เปิดที่หน้าเครื่องมือคำนวณ)");return}
+ if(!confirm("แทนที่แผนการจัดการในเบราว์เซอร์นี้ด้วยข้อมูลจากไฟล์?"))return;
+ P=o.plan; savePlan(); renderPlan(); if(Array.isArray(o.check)){CK=o.check;store.set("check",CK);renderCk()} $("#planMsg").textContent="เปิดไฟล์แผนแล้ว"; setTimeout(()=>$("#planMsg").textContent="",4000)})};
+
+/* ======================= PRETEST ======================= */
+const PRETEST=[
+ {q:"การจัดการระบบนิเวศเป็นกระบวนการหรือขั้นตอนการดำเนินการต่าง ๆ ภายใต้หลักการอนุรักษ์ (อนุรักษ์วิทยา)",a:true,
+  e:"การจัดการระบบนิเวศ (ecosystem management) ดำเนินการภายใต้หลักการอนุรักษ์ มีการกำหนดขอบเขต ผู้เกี่ยวข้อง วัตถุประสงค์ แผนงาน ตัวชี้วัดความสำเร็จ และวนซ้ำแบบ Plan–Do–Check–Act"},
+ {q:"การอนุรักษ์ (ตรงกับศัพท์ภาษาอังกฤษว่า conservation) หมายถึง การใช้ทรัพยากรที่เป็นต้นทุนอย่างสมเหตุสมผล ในทิศทางที่ไม่ให้เกิดความเสื่อมโทรม สูญเสีย หรือหมดสิ้นไป",a:true,
+  e:"ตรงตามนิยามในคู่มือปฏิบัติการ: ใช้ทุนทางธรรมชาติ (natural capital/stock) อย่างสมเหตุสมผลเพื่อให้มีใช้ตลอดไป แบ่งวิธีการเป็น preservation · sustainable use · restoration/replacement"},
+ {q:"บริการของระบบนิเวศแบ่งเป็น 6 ด้านหลัก ซึ่งจะทำปฏิบัติการในครั้งนี้",a:false,
+  e:"บริการของระบบนิเวศแบ่งเป็น 4 ด้าน (MA, 2005): provisioning · regulating · cultural · supporting (บางหน่วยงานแบ่ง 3 ด้าน) — ส่วนเกณฑ์ที่ใช้ในปฏิบัติการนี้มี 3 ด้าน 15 ตัวชี้วัด"},
+ {q:"การประเมินระบบนิเวศในปฏิบัติการครั้งนี้ใช้วิธีการประเมินแบบ conventional assessment",a:false,
+  e:"ปฏิบัติการนี้ใช้การประเมินแบบรวดเร็ว (rapid assessment) ซึ่งใช้ตัวแปรสำคัญบางตัว ใช้เวลา/กำลังคน/งบน้อยกว่า แต่ความแม่นยำต่ำกว่าแบบปกติ (conventional)"},
+ {q:"การประเมินระบบนิเวศ มีเป้าหมายเพื่อทำความเข้าใจสถานภาพระบบนิเวศ และสามารถนำข้อมูลมาประกอบการปรับปรุงระบบนิเวศให้เหมาะสม",a:true,
+  e:"ผลการประเมินบอกศักยภาพปัจจุบัน จุดเด่น–จุดด้อย แล้วนำมาวางแผนการจัดการเพื่อปรับปรุงพื้นที่สีเขียว"},
+ {q:"วัตถุประสงค์หนึ่งในสองข้อของการทำปฏิบัติการวันนี้คือนิสิตได้ฝึกทักษะการเขียนแผนการจัดการระบบนิเวศ ซึ่งอาจารย์ผู้สอนจะนำไปออกข้อสอบปลายภาค",a:true,
+  e:"วัตถุประสงค์ข้อ 2: ฝึกทักษะ/ความคิดสร้างสรรค์ในการวางแผนการจัดการระบบนิเวศโดยใช้หลักการอนุรักษ์วิทยา — เตรียมตัวสำหรับข้อสอบปลายภาคด้วย"}];
+let PT=store.get("pretest",{name:"",id:"",group:"",ans:{},done:false});
+function renderPT(){
+ ["Name","Id","Group"].forEach(k=>$("#pt"+k).value=PT[k.toLowerCase()]||"");
+ $("#ptList").className=PT.done?"done":"";
+ $("#ptList").innerHTML=PRETEST.map((x,k)=>{const v=PT.ans[k]; const st=PT.done?(v===x.a?"right":"wrong"):"";
+  return `<div class="q-item ${st}"><div><span class="qn">${k+1}.</span>${esc(x.q)}</div>
+  <div class="tf">${[[true,"ถูก"],[false,"ผิด"]].map(([val,t])=>`<label><input type="radio" name="pt${k}" data-q="${k}" value="${val}" ${v===val?"checked":""} ${PT.done?"disabled":""}> ${t}</label>`).join("")}</div>
+  <div class="q-exp">${v===x.a?'<b class="okc">✓ ถูกต้อง</b>':`<b class="warn">✗ ${v===undefined?"ไม่ได้ตอบ":"ยังไม่ถูก"}</b>`} — เฉลย: <b>${x.a?"ถูก":"ผิด"}</b><br>${esc(x.e)}</div></div>`}).join("");
+ const sc=PRETEST.filter((x,k)=>PT.ans[k]===x.a).length;
+ $("#ptScore").textContent=PT.done?`${sc}/${PRETEST.length}`:"–";
+ $("#ptScoreTxt").textContent=PT.done?(sc===PRETEST.length?"เยี่ยม! ถูกทุกข้อ":sc>=4?"ดีมาก":"ทบทวน VDO และคู่มือ"):"ยังไม่ส่งคำตอบ";
+}
+$("#ptList").addEventListener("change",e=>{const el=e.target;if(el.dataset.q===undefined)return;PT.ans[+el.dataset.q]=el.value==="true";store.set("pretest",PT)});
+[["ptName","name"],["ptId","id"],["ptGroup","group"]].forEach(([id,k])=>$("#"+id).addEventListener("input",e=>{PT[k]=e.target.value;store.set("pretest",PT)}));
+$("#ptSubmit").onclick=()=>{if(PT.done)return; const miss=PRETEST.map((_,k)=>k).filter(k=>PT.ans[k]===undefined);
+ if(miss.length&&!confirm(`ยังไม่ได้ตอบข้อ ${miss.map(k=>k+1).join(", ")} — ส่งคำตอบเลยหรือไม่?`))return;
+ PT.done=true; PT.at=new Date().toISOString(); store.set("pretest",PT); renderPT(); $("#ptMsg").textContent=""; $("#pretestCard").scrollIntoView({behavior:"smooth"})};
+$("#ptRetry").onclick=()=>{if(PT.done||Object.keys(PT.ans).length){if(!confirm("ล้างคำตอบและทำใหม่?"))return} PT.ans={};PT.done=false;store.set("pretest",PT);renderPT()};
+$("#ptPrint").onclick=()=>{if(!PT.done){$("#ptMsg").textContent="กรุณากด “ส่งคำตอบ” ก่อนบันทึกผล";return}
+ if(!(PT.name||"").trim()||!(PT.id||"").trim()){$("#ptMsg").textContent="กรุณากรอกชื่อและรหัสนิสิต";$("#ptName").focus();return}
+ $("#ptMsg").textContent="";
+ const sc=PRETEST.filter((x,k)=>PT.ans[k]===x.a).length;
+ $("#ptPrintHead").innerHTML=`<b>Pretest: การประเมินบริการของระบบนิเวศ</b> · 2303222 Ecology Laboratory<br>${esc(PT.name)} · รหัส ${esc(PT.id)} · กลุ่ม ${esc(PT.group||"-")} · คะแนน ${sc}/${PRETEST.length} · ส่งเมื่อ ${new Date(PT.at||Date.now()).toLocaleString("th-TH")}`;
+ const old=document.title; document.title=`${(PT.id||"").trim()}_Pretest`; document.body.classList.add("printing-pretest");
+ const done=()=>{document.title=old;document.body.classList.remove("printing-pretest");window.removeEventListener("afterprint",done)};
+ window.addEventListener("afterprint",done); window.print()};
+renderPT();
 
 route();
 </script>
