@@ -458,7 +458,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
           <h3>ข้อมูลพื้นที่</h3>
           <div class="grid g2">
             <div class="field"><label for="groupCode">รหัสกลุ่มย่อย *</label><input type="text" id="groupCode" placeholder="เช่น A1.1"><span class="hint">ใช้ตั้งชื่อไฟล์ PDF อัตโนมัติ</span></div>
-            <div class="field"><label for="evalDate">วันที่ประเมิน</label><input type="text" id="evalDate" placeholder="เช่น 30 ก.ย. 2568"></div>
+            <div class="field"><label for="evalDate">วันที่ประเมิน</label><input type="text" id="evalDate" placeholder="เช่น 10 ต.ค. 2569"></div>
             <div class="field"><label for="siteName">ชื่อพื้นที่สีเขียว *</label><input type="text" id="siteName" placeholder="เช่น อุทยาน 100 ปี จุฬาฯ / หอพัก xx"></div>
             <div class="field"><label for="siteType">ประเภทพื้นที่สีเขียว (สำหรับคะแนนถ่วงน้ำหนัก)</label><select id="siteType"></select></div>
             <div class="field" style="grid-column:1/-1"><label for="members">สมาชิกกลุ่มย่อย (ชื่อ–รหัสนิสิต)</label><input type="text" id="members" placeholder="เช่น นาย ก 66xxxxxx23, นางสาว ข 66xxxxxx23"></div>
@@ -519,7 +519,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
       <div id="eqBox" class="callout" style="display:none;font-size:.88rem"></div>
       <div class="grid g4 keep2" style="margin:10px 0">
         <div class="field"><label for="tPlot">พื้นที่แปลงสำรวจ (ไร่)</label><input type="number" min="0" step="any" id="tPlot" placeholder="เช่น 1"><span class="hint">1 ไร่ = 1,600 ตร.ม. (40×40 ม.)</span></div>
-        <div class="field"><label for="tYear">ปี พ.ศ. ที่เก็บข้อมูล</label><input type="number" id="tYear" placeholder="2568"></div>
+        <div class="field"><label for="tYear">ปี พ.ศ. ที่เก็บข้อมูล</label><input type="number" id="tYear" placeholder="2569"></div>
         <div class="field"><label for="tBase">คาร์บอนปีฐาน (tCO₂e/ไร่) ถ้ามี</label><input type="number" min="0" step="any" id="tBase" placeholder="เว้นว่างได้"></div>
         <div class="field"><label for="tBaseYear">ปี พ.ศ. ของปีฐาน</label><input type="number" id="tBaseYear" placeholder="เช่น 2567"></div>
       </div>
@@ -629,8 +629,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
   <p class="muted">ตามตารางที่ ผ.1 ในคู่มือปฏิบัติการ · ข้อมูลแผนจำไว้ในเบราว์เซอร์เครื่องนี้ ส่งต่อให้เพื่อนด้วยปุ่ม “บันทึกไฟล์แผน / เปิดไฟล์แผน” ด้านล่าง · · ระยะเวลา 2 ปี (24 เดือน) · พื้นที่ละ 6 กิจกรรม (รวม 12) · เรียงความสำคัญจากด้านที่ได้คะแนนน้อยที่สุด · ตัวชี้วัดความสำเร็จต้องวัด/ประเมินได้ (เชิงปริมาณ)</p>
   <div class="card noprint">
     <div class="grid g3">
-      <div class="field"><label for="planStart">เริ่มดำเนินการ</label><input type="text" id="planStart" placeholder="มกราคม 2569"></div>
-      <div class="field"><label for="planEnd">สิ้นสุด</label><input type="text" id="planEnd" placeholder="ธันวาคม 2570"></div>
+      <div class="field"><label for="planStart">เริ่มดำเนินการ</label><input type="text" id="planStart" placeholder="มกราคม 2570"></div>
+      <div class="field"><label for="planEnd">สิ้นสุด</label><input type="text" id="planEnd" placeholder="ธันวาคม 2571"></div>
       <div class="field"><label for="planGoal">เป้าหมาย</label><input type="text" id="planGoal" value="พัฒนาคุณภาพของระบบนิเวศพื้นที่สีเขียว"></div>
     </div>
   </div>
@@ -779,9 +779,9 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-o
 <script>
 /* ======================= CONFIG (แก้ไขได้ทุกปีการศึกษา) ======================= */
 const CONFIG = {
-  year: "ปีการศึกษา 2568",
-  labDates: "อังคาร 30 ก.ย. / พฤหัสบดี 2 ต.ค. 2568",
-  dueDates: "ส่งงาน อังคาร 7 ต.ค. หรือ พฤหัสบดี 9 ต.ค. 2568 (ตามกลุ่มเรียน)",
+  year: "ปีการศึกษา 2569",
+  labDates: "นิสิตตกลงกันเองในกลุ่ม",
+  dueDates: "ส่งงาน: อังคาร 20 ต.ค. หรือ พฤหัสบดี 22 ต.ค. 2569 (ตามกลุ่มเรียน)",
   driveUrl: "https://drive.google.com/drive/folders/16fSx81Zp9sVmjyYn3wD_uYTkMUMlXAVf?usp=sharing",
   ytBrief: "0UhJoOFQ0Oo",
   ytES: "kSO3W-PBdx4",
@@ -978,7 +978,7 @@ $("#themeBtn").onclick=()=>{const cur=document.documentElement.dataset.theme||(m
 
 /* ======================= STATIC RENDER ======================= */
 $("#heroChips").innerHTML=[CONFIG.year,"ปฏิบัติการ: "+CONFIG.labDates,CONFIG.dueDates].map(t=>`<span class="chip">${esc(t)}</span>`).join("");
-$("#sideDates").innerHTML=`<b>${esc(CONFIG.year)}</b><br>${esc(CONFIG.labDates)}`;
+$("#sideDates").innerHTML=`<b>${esc(CONFIG.year)}</b><br>ปฏิบัติการ: ${esc(CONFIG.labDates)}`;
 $("#ytMain").src=`https://www.youtube-nocookie.com/embed/${CONFIG.ytBrief}?rel=0`; $("#ytMainLink").href=`https://youtu.be/${CONFIG.ytBrief}`;
 $("#ytES").src=`https://www.youtube-nocookie.com/embed/${CONFIG.ytES}?rel=0`; $("#ytESLink").href=`https://youtu.be/${CONFIG.ytES}`;
 $("#driveLink").href=CONFIG.driveUrl; $("#dueText").textContent=CONFIG.dueDates;
